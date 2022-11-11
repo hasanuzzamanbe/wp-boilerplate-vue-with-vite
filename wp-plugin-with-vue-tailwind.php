@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: WP with vue-tailwind
+ * Plugin Name: WP with vue-tailwind-vite
  * Plugin URI: http://wpminers.com/
  * Description: A sample Wordpress plugin to implement Vue with tailwind.
  * Author: Hasanuzzaman Shamim
