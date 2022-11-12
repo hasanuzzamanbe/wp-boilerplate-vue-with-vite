@@ -27,5 +27,7 @@ You can check another boilerplate plugin with vue js and element UI, You can cre
 
 Check it here: https://github.com/hasanuzzamanbe/wp-boilerplate-plugin-with-vuejs
 
-
+### Other Setups you may Use
+* WordPress Plugin with Vue 3, tailwind (Laravel Mix Build) [https://github.com/hasanuzzamanbe/wp-plugin-with-vue-tailwind]
+* WordPress Plugin with Vue 2, Element UI (Laravel Mix Build) [https://github.com/hasanuzzamanbe/wp-boilerplate-plugin-with-vuejs]
 
