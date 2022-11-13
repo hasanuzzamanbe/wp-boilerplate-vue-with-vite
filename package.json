@@ -3,11 +3,10 @@
     "version": "1.0.0",
     "description": "A WordPress boilerplate plugin using vue.js",
     "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "hot": "cross-env NODE_ENV=development webpack-dev-server --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "dev": "node src/env/development_mode.js && vite",
+        "watch": "npm run dev",
+        "build": "node src/env/production_mode.js && vite build",
+        "production": "npm run build"
     },
     "main": "index.js",
     "dependencies": {

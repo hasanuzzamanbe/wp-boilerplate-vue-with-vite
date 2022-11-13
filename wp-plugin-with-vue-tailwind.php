@@ -13,6 +13,9 @@ define('WPM_DIR', plugin_dir_path(__FILE__));
 
 define('WPM_VERSION', '1.0.5');
 
+// This will automatically update, when you run dev or production
+define('WPM_DEVELOPMENT', 'yes');
+
 class WPPluginWithVueTailwind {
     public function boot()
     {
@@ -69,15 +72,10 @@ class WPPluginWithVueTailwind {
         return $tag;
     }
 
-
     public function renderAdminPage()
     {
-        //development
-        wp_enqueue_script('WPWVT-script-boot', 'http://localhost:8880/' . 'src/admin/start.js', array('jquery'), WPM_VERSION, true);
-
-        //production
-        // wp_enqueue_script('WPWVT-script-boot', WPM_URL . 'assets/js/start.js', array('jquery'), WPM_VERSION, false);
-        // wp_enqueue_style('WPWVT-global-styling', WPM_URL . 'assets/css/start.css', array(), WPM_VERSION);
+        $loadAssets = new \WPPluginWithVueTailwind\Classes\LoadAssets();
+        $loadAssets->enqueueAssets();
 
         $WPWVT = apply_filters('WPWVT/admin_app_vars', array(
             'assets_url' => WPM_URL . 'assets/',

@@ -1,11 +1,9 @@
-# WP Plugin Vue Tailwind Boilerplate
-This is a Customizable sample WordPress Plugin which is developed as a single page app on backend with Vue js and Tailwind custom build css.
-# Plugin name : WP Plugin Vue Tailwind Boilerplate
-
+# WP Plugin Vue Boilerplate (Vite Build)
+This is a Customizable sample WordPress Plugin which is developed as a single page app on backend with Vue js and Tailwind custom build css. and you don't have to reload page all the time.
 
 <img src="./src/github-images/dashboard.png" />
 
-Caption: <i>Dummy dashboard with custom build vue + tailwind setup</i><br/>
+Caption: <i>Dummy dashboard with custom build vue + tailwind setup (Vite realtime environment)</i><br/>
 
 # How to use ?
 
@@ -14,6 +12,10 @@ Caption: <i>Dummy dashboard with custom build vue + tailwind setup</i><br/>
 - command: `npm i`
 - command: `npm run watch` for development and for production: `npm run production`
 
+On production you only need
+- assets
+- includes
+- wp-plugin-with-vue-tailwind.php (plugin Entry file)
 
 
 

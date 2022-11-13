@@ -9,11 +9,6 @@ import {
     removeAllActions
 } from '@wordpress/hooks';
 
-import moment from 'moment';
-// const moment = require('moment');
-// require('moment/locale/en-gb');
-moment.locale('en-gb');
-
 const appStartTime = new Date();
 
 
@@ -46,7 +41,6 @@ export default class WPPluginVueTailwind {
                 ucFirst: self.ucFirst,
                 ucWords: self.ucWords,
                 slugify: self.slugify,
-                // moment: moment,
                 $get: self.$get,
                 $post: self.$post,
                 $del: self.$del,
@@ -121,16 +115,6 @@ export default class WPPluginVueTailwind {
     $patch(url, options = {}) {
         return AJAX.patch(url, options);
     }
-
-    // dateTimeFormat(date, format) {
-    //     const dateString = (date === undefined) ? null : date;
-    //     const dateObj = moment(dateString);
-    //     return dateObj.isValid() ? dateObj.format(format) : null;
-    // }
-
-    // localDate(date) {
-    //     return moment.utc(date).local();
-    // }
 
     longLocalDate(date) {
         return this.dateTimeFormat(
@@ -234,24 +218,4 @@ export default class WPPluginVueTailwind {
 
         return string.join('<br />')
     }
-
-    // humanDiffTime(date) {
-    //     const dateString = (date === undefined) ? null : date;
-    //     if (!dateString) {
-    //         return '';
-    //     }
-    //     const endTime = new Date();
-    //     const timeDiff = endTime - appStartTime; // in ms
-    //     const dateObj = moment(dateString);
-    //     return dateObj.from(moment(window.WPPluginVueTailwindAdmin.server_time).add(timeDiff, 'milliseconds'));
-    // }
-
-    // waitingTime(time1, time2) {
-    //     if (!time2 || !time1) {
-    //         return '';
-    //     }
-    //     time1 = moment(time1);
-    //     time2 = moment(time2);
-    //     return time2.from(time1);
-    // }
 }
