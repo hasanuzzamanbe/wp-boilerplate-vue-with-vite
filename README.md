@@ -1,6 +1,11 @@
 # WP Plugin Vue Boilerplate (Vite Build)
 This is a Customizable sample WordPress Plugin which is developed as a single page app on backend with Vue js and Tailwind custom build css. and you don't have to reload page all the time.
 
+
+[![short demo](https://img.youtube.com/vi/VA3G8ahoHLE/sddefault.jpg)](https://www.youtube.com/watch?v=VA3G8ahoHLE)
+
+
+
 <img src="./src/github-images/dashboard.png" />
 
 Caption: <i>Dummy dashboard with custom build vue + tailwind setup (Vite realtime environment)</i><br/>
