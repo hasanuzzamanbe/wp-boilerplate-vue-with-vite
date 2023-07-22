@@ -1,7 +1,7 @@
 # WP Plugin Vue Boilerplate (Vite Build)
 This is a Customizable sample WordPress Plugin which is developed as a single page app on backend with Vue js and Tailwind custom build css. and you don't have to reload page all the time.
 
-
+Check video here
 [![short demo](https://img.youtube.com/vi/VA3G8ahoHLE/sddefault.jpg)](https://www.youtube.com/watch?v=VA3G8ahoHLE)
 
 
@@ -22,7 +22,36 @@ On production you only need
 - includes
 - wp-plugin-with-vue-tailwind.php (plugin Entry file)
 
+## Now easy enqueue from version 1.0.6
+No need to worry about the dev environment enqueue or Production level enqueue.
+everything here can manage by Vite dedicated class (`includes/Classes/Vite.php`)
 
+Just Call like this
+
+`Vite::enqueueScript($enqueueTag, $yourAdminSourcePath, $dependency = [], $version = null, $inFooter = false)`
+
+Note: same as `wp_enqueue_script`
+
+### Example use case:
+<p style="color: green;">
+No need to enqueue production manually again, It will enqueue from manifest on production. Just call `Vite::enqueueScript()`</p>
+
+`Vite::enqueueScript('my-plugin-script-boot', 'admin/start.js', array('jquery'), WPM_VERSION, true)`
+---
+###  NOT RECOMENDED
+If you want to use `wp_enqueue_script` then you have to call both dev and production manually:
+
+(Production and dev enqueue script should like this)
+
+```
+if (defined('WPM_DEVELOPMENT') && WPM_DEVELOPMENT !== 'yes') {
+    wp_enqueue_script('WPWVT-script-boot', WPM_URL . 'assets/js/start.js', array('jquery'), WPM_VERSION, false);
+} else {
+    wp_enqueue_script('WPWVT-script-boot', 'http://localhost:8880/' . 'src/admin/start.js', array('jquery'), WPM_VERSION, true);
+}
+
+
+```
 
 If you face any issue feel free to let me know. :)
 

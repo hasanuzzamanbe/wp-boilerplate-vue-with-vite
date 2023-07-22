@@ -6,7 +6,7 @@
  * Description: A sample Wordpress plugin to implement Vue with tailwind.
  * Author: Hasanuzzaman Shamim
  * Author URI: http://hasanuzzaman.com/
- * Version: 1.0.5
+ * Version: 1.0.6
  */
 define('WPM_URL', plugin_dir_url(__FILE__));
 define('WPM_DIR', plugin_dir_path(__FILE__));
@@ -23,11 +23,7 @@ class WPPluginWithVueTailwind {
         $this->registerShortCodes();
         $this->ActivatePlugin();
         $this->renderMenu();
-        $this->registerHooks();
-    }
-    public function registerHooks()
-    {
-        add_filter('script_loader_tag', array($this, 'addModuleToScript'), 10, 3);
+        $this->disableUpdateNag();
     }
 
     public function loadClasses()
@@ -64,18 +60,10 @@ class WPPluginWithVueTailwind {
         });
     }
 
-    public function addModuleToScript($tag, $handle, $src)
-    {
-        if ($handle === 'WPWVT-script-boot') {
-            $tag = '<script type="module" id="WPWVT-script-boot" src="' . esc_url($src) . '"></script>';
-        }
-        return $tag;
-    }
-
     public function renderAdminPage()
     {
         $loadAssets = new \WPPluginWithVueTailwind\Classes\LoadAssets();
-        $loadAssets->enqueueAssets();
+        $loadAssets->admin();
 
         $WPWVT = apply_filters('WPWVT/admin_app_vars', array(
             'assets_url' => WPM_URL . 'assets/',
@@ -101,6 +89,20 @@ class WPPluginWithVueTailwind {
     public function registerShortCodes()
     {
         // your shortcode here
+    }
+
+    // disable update nag on admin dashboard
+    public function disableUpdateNag()
+    {
+        add_action('admin_init', function () {
+            $disablePages = [
+                'wpp-plugin-with-vue-tailwind.php',
+            ];
+
+            if (isset($_GET['page']) && in_array($_GET['page'], $disablePages)) {
+                remove_all_actions('admin_notices');
+            }
+        }, 20);
     }
 
     public function ActivatePlugin()
