@@ -72,6 +72,23 @@ class Vite
         return $this;
     }
 
+    private function enqueueStyle($handle, $src, $dependency = [], $version = null)
+    {
+        if (!static::isDevMode()) {
+            $assetFile = (static::$instance)->getFileFromManifest($src);
+            $srcPath = static::getProductionFilePath($assetFile);
+        } else {
+            $srcPath = static::getDevPath() . $src;
+        }
+    
+        wp_enqueue_style(
+            $handle,
+            $srcPath,
+            $dependency,
+            $version
+        );
+    }
+
     private function viteManifest()
     {
         if (!empty((static::$instance)->manifestData)) {
