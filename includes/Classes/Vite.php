@@ -2,6 +2,8 @@
 
 namespace WPPluginWithVueTailwind\Classes;
 
+use Exception;
+
 class Vite
 {
     private static $instance = null;
@@ -32,16 +34,16 @@ class Vite
      * @param array $dependency
      * @param null $version
      * @param bool $inFooter
-     * @return $this
+     * @return Vite
      * 
-     * @throws \Exception If dev mode is on and file not found in manifest
+     * @throws Exception If dev mode is on and file not found in manifest
      * 
      */
     private function enqueueScript($handle, $src, $dependency = [], $version = null, $inFooter = false)
     {
         if (in_array($handle, (static::$instance)->moduleScripts)) {
             if (static::isDevMode()) {
-                throw new \Exception('This handel Has been used');
+                throw new Exception('This handel Has been used');
             }
             return;
         }
@@ -97,17 +99,20 @@ class Vite
 
         $manifestPath = realpath(__DIR__) . '/../../assets/manifest.json';
         if (!file_exists($manifestPath)) {
-            throw new \Exception('Vite Manifest Not Found. Run : npm run dev or npm run prod');
+            throw new Exception('Vite Manifest Not Found. Run : npm run dev or npm run prod');
         }
         $manifestFile = fopen($manifestPath, "r");
         $manifestData = fread($manifestFile, filesize($manifestPath));
         (static::$instance)->manifestData = json_decode($manifestData, true);
     }
 
+    /**
+     * @throws Exception
+     */
     private function getFileFromManifest($src)
     {
         if (!isset((static::$instance)->manifestData[(static::$instance)->resourceDirectory . $src]) && static::isDevMode()) {
-            throw new \Exception("$src file not found in vite manifest, Make sure it is in rollupOptions input and build again");
+            throw new Exception("$src file not found in vite manifest, Make sure it is in rollupOptions input and build again");
         }
 
         return (static::$instance)->manifestData[(static::$instance)->resourceDirectory . $src];
@@ -121,22 +126,22 @@ class Vite
         return $tag;
     }
 
-    public static function isDevMode()
+    public static function isDevMode(): bool
     {
         return defined('WPM_DEVELOPMENT') && WPM_DEVELOPMENT === 'yes';
     }
 
-    private static function getDevPath()
+    private static function getDevPath(): string
     {
         return (static::$instance)->viteHostProtocol . (static::$instance)->viteHost . ':' . (static::$instance)->vitePort . '/' . (static::$instance)->resourceDirectory;
     }
 
-    private static function getAssetPath()
+    private static function getAssetPath(): string
     {
         return WPM_URL . 'assets/';
     }
 
-    private static function getProductionFilePath($file)
+    private static function getProductionFilePath($file): string
     {
         $assetPath = static::getAssetPath();
         if (isset($file['css']) && is_array($file['css'])) {

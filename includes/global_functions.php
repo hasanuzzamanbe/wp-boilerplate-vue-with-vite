@@ -8,9 +8,9 @@ function WPWVT_getAvatar($email, $size)
     /**
      * Gravatar URL by Email
      *
-     * @return HTML $gravatar img attributes of the gravatar image
+     * @return html $gravatar img attributes of the gravatar image
      */
-    return apply_filters('wppayform_get_avatar',
+    return apply_filters('wpwvt_get_avatar',
         "https://www.gravatar.com/avatar/${hash}?s=${size}&d=mm&r=g",
         $email
     );
