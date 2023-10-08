@@ -48,7 +48,14 @@ export default class WPPluginVueTailwind {
                 convertToText: self.convertToText,
                 $setTitle(title) {
                     document.title = title;
-                }
+                },
+                $t(str) {
+                    let transString = WPWVTAdmin.i18n[str];
+                    if (transString) {
+                        return transString;
+                    }
+                    return str;
+                },
             }
         });
 
