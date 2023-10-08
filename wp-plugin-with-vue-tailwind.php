@@ -17,7 +17,7 @@ define('WPM_VERSION', '1.0.5');
 // This will automatically update, when you run dev or production
 define('WPM_DEVELOPMENT', 'yes');
 
-class WPPluginWithVueTailwind {
+class WPPluginVueTailwind {
     public function boot()
     {
         $this->loadClasses();
@@ -42,7 +42,7 @@ class WPPluginWithVueTailwind {
             global $submenu;
             add_menu_page(
                 'WPPluginVueTailwind',
-                'WP Plugin Vue Tailwind',
+                'WPPluginVueDash',
                 'manage_options',
                 'wpp-plugin-with-vue-tailwind.php',
                 array($this, 'renderAdminPage'),
@@ -64,7 +64,7 @@ class WPPluginWithVueTailwind {
 
     /**
      * Main admin Page where the Vue app will be rendered
-     * For translatable string localization you may use this hook
+     * For translatable string localization you may use like this
      * 
      *      add_filter('WPWVT/frontend_translatable_strings', function($translatable){
      *          $translatable['world'] = __('World', 'wp-boilerplate-vue-with-vite');
@@ -73,7 +73,7 @@ class WPPluginWithVueTailwind {
      */
     public function renderAdminPage()
     {
-        $loadAssets = new \WPPluginWithVueTailwind\Classes\LoadAssets();
+        $loadAssets = new \WPPluginVueTailwind\Classes\LoadAssets();
         $loadAssets->admin();
 
         $translatable = apply_filters('WPWVT/frontend_translatable_strings', array(
@@ -141,7 +141,7 @@ class WPPluginWithVueTailwind {
     {
         register_activation_hook(__FILE__, function ($newWorkWide) {
             require_once(WPM_DIR . 'includes/Classes/Activator.php');
-            $activator = new \WPPluginWithVueTailwind\Classes\Activator();
+            $activator = new \WPPluginVueTailwind\Classes\Activator();
             $activator->migrateDatabases($newWorkWide);
         });
     }
@@ -156,7 +156,7 @@ class WPPluginWithVueTailwind {
     }
 }
 
-(new WPPluginWithVueTailwind())->boot();
+(new WPPluginVueTailwind())->boot();
 
 
 

@@ -25,7 +25,7 @@ if (!function_exists('WPPluginVueTailwindAutoload')) {
     function WPPluginVueTailwindAutoload($class)
     {
         // Do not load unless in plugin domain.
-        $namespace = 'WPPluginWithVueTailwind';
+        $namespace = 'WPPluginVueTailwind';
         if (strpos($class, $namespace) !== 0) {
             return;
         }

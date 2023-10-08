@@ -1,6 +1,6 @@
 <?php
 
-namespace WPPluginWithVueTailwind\Classes;
+namespace WPPluginVueTailwind\Classes;
 
 if (!defined('ABSPATH')) {
     exit;
