@@ -69,11 +69,12 @@ rl.question("Please enter your plugin Name:", function(answer) {
         
             var mapObj = {
               WPPluginVueTailwind: Camel,
-              WPWVT: Slug,
+              wpmvt: Lowercase,
               WPM: Uppercase,
-              WPPluginVueApp: answer
+              WPPluginVueApp: answer,
+              wppluginvue: Slug
            };
-           var result = data.replace(/WPPluginVueTailwind|WPWVT|WPM|WPPluginVueApp/gi, function(matched){
+           var result = data.replace(/WPPluginVueTailwind|wpmvt|wppluginvue|WPM|WPPluginVueApp/gi, function(matched){
              return mapObj[matched];
            });
             fs.writeFile(item, result, 'utf8', function (err) {
@@ -95,12 +96,13 @@ rl.question("Please enter your plugin Name:", function(answer) {
             
                 var mapObj = {
                   WPPluginVueTailwind: Camel,
-                  WPWVT: Slug,
+                  wpmvt: Lowercase,
                   WPM: Uppercase,
-                  WPPluginVueApp: answer
+                  WPPluginVueApp: answer,
+                  wppluginvue: Slug
                };
 
-               var result = data.replace(/WPPluginVueTailwind|WPWVT|WPM|WPPluginVueApp/gi, function(matched){
+               var result = data.replace(/WPPluginVueTailwind|wpmvt|wppluginvue|WPM|WPPluginVueApp/gi, function(matched){
                  return mapObj[matched];
                });
                 fs.writeFile(item, result, 'utf8', function (err) {
@@ -129,11 +131,12 @@ rl.question("Please enter your plugin Name:", function(answer) {
               var mapObj = {
                 YourPlugin: answer,
                 WPPluginVueTailwind: Camel,
-                WPWVT: Slug,
+                wpmvt: Lowercase,
                 WPM: Uppercase,
-                WPPluginVueApp: answer
+                WPPluginVueApp: answer,
+                wppluginvue: Slug
              };
-             var result = data.replace(/YourPlugin|WPPluginVueTailwind|WPWVT|WPM|WPPluginVueApp/gi, function(matched){
+             var result = data.replace(/YourPlugin|WPPluginVueTailwind|wppluginvue|wpmvt|WPM|WPPluginVueApp/gi, function(matched){
                return mapObj[matched];
              });
     

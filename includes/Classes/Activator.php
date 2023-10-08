@@ -48,7 +48,7 @@ class Activator
     {
         global $wpdb;
         $charset_collate = $wpdb->get_charset_collate();
-        $table_name = $wpdb->prefix . 'WPWVT_user_favorites';
+        $table_name = $wpdb->prefix . 'wpmvt_user_favorites';
         $sql = "CREATE TABLE $table_name (
             id int(10) NOT NULL AUTO_INCREMENT,
             user_id int(10) NOT NULL,

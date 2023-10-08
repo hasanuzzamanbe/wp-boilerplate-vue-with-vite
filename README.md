@@ -55,9 +55,9 @@ If you want to use `wp_enqueue_script` then you have to call both dev and produc
 
 ```
 if (defined('WPM_DEVELOPMENT') && WPM_DEVELOPMENT !== 'yes') {
-    wp_enqueue_script('WPWVT-script-boot', WPM_URL . 'assets/js/start.js', array('jquery'), WPM_VERSION, false);
+    wp_enqueue_script('wpmvt-script-boot', WPM_URL . 'assets/js/start.js', array('jquery'), WPM_VERSION, false);
 } else {
-    wp_enqueue_script('WPWVT-script-boot', 'http://localhost:8880/' . 'src/admin/start.js', array('jquery'), WPM_VERSION, true);
+    wp_enqueue_script('wpmvt-script-boot', 'http://localhost:8880/' . 'src/admin/start.js', array('jquery'), WPM_VERSION, true);
 }
 ```
 </details>

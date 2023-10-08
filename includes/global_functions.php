@@ -1,7 +1,7 @@
 <?php
 // global functions here
 
-function WPWVT_getAvatar($email, $size)
+function wpmvt_getAvatar($email, $size)
 {
     $hash = md5(strtolower(trim($email)));
 

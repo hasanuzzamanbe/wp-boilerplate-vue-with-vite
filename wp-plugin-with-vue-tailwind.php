@@ -44,20 +44,20 @@ class WPPluginVueTailwind {
                 'WPPluginVueTailwind',
                 'WPPluginVueDash',
                 'manage_options',
-                'wpp-plugin-with-vue-tailwind.php',
+                'wppluginvue.php',
                 array($this, 'renderAdminPage'),
                 'dashicons-editor-code',
                 25
             );
-            $submenu['wpp-plugin-with-vue-tailwind.php']['dashboard'] = array(
+            $submenu['wppluginvue.php']['dashboard'] = array(
                 'Dashboard',
                 'manage_options',
-                'admin.php?page=wpp-plugin-with-vue-tailwind.php#/',
+                'admin.php?page=wppluginvue.php#/',
             );
-            $submenu['wpp-plugin-with-vue-tailwind.php']['contact'] = array(
+            $submenu['wppluginvue.php']['contact'] = array(
                 'Contact',
                 'manage_options',
-                'admin.php?page=wpp-plugin-with-vue-tailwind.php#/contact',
+                'admin.php?page=wppluginvue.php#/contact',
             );
         });
     }
@@ -66,7 +66,7 @@ class WPPluginVueTailwind {
      * Main admin Page where the Vue app will be rendered
      * For translatable string localization you may use like this
      * 
-     *      add_filter('WPWVT/frontend_translatable_strings', function($translatable){
+     *      add_filter('wpmvt/frontend_translatable_strings', function($translatable){
      *          $translatable['world'] = __('World', 'wp-boilerplate-vue-with-vite');
      *          return $translatable;
      *      }, 10, 1);
@@ -76,19 +76,19 @@ class WPPluginVueTailwind {
         $loadAssets = new \WPPluginVueTailwind\Classes\LoadAssets();
         $loadAssets->admin();
 
-        $translatable = apply_filters('WPWVT/frontend_translatable_strings', array(
+        $translatable = apply_filters('wpmvt/frontend_translatable_strings', array(
             'hello' => __('Hello', 'wp-boilerplate-vue-with-vite'),
         ));
 
-        $WPWVT = apply_filters('WPWVT/admin_app_vars', array(
+        $wpmvt = apply_filters('wpmvt/admin_app_vars', array(
             'assets_url' => WPM_URL . 'assets/',
             'ajaxurl' => admin_url('admin-ajax.php'),
             'i18n' => $translatable
         ));
 
-        wp_localize_script('WPWVT-script-boot', 'WPWVTAdmin', $WPWVT);
+        wp_localize_script('wpmvt-script-boot', 'wpmvtAdmin', $wpmvt);
 
-        echo '<div class="WPWVT-admin-page" id="WPWVT_app">
+        echo '<div class="wpmvt-admin-page" id="wpmvt_app">
             <div class="main-menu text-white-200 bg-wheat-600 p-4">
                 <router-link to="/">
                     Home
@@ -123,7 +123,7 @@ class WPPluginVueTailwind {
     {
         add_action('admin_init', function () {
             $disablePages = [
-                'wpp-plugin-with-vue-tailwind.php',
+                'wppluginvue.php',
             ];
 
             if (isset($_GET['page']) && in_array($_GET['page'], $disablePages)) {

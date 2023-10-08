@@ -6,7 +6,7 @@ class LoadAssets
 {
     public function admin()
     {
-        Vite::enqueueScript('WPWVT-script-boot', 'admin/start.js', array('jquery'), WPM_VERSION, true);
+        Vite::enqueueScript('wpmvt-script-boot', 'admin/start.js', array('jquery'), WPM_VERSION, true);
     }
   
 }
