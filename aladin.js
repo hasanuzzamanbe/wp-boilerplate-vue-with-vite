@@ -58,7 +58,7 @@ rl.question("Please enter your plugin Name:", function(answer) {
     
   
     // For entry file selection
-    glob("wp-boilerplate-vue-with-vite.php", function(err, files) {
+    glob("plugin-entry.php", function(err, files) {
           files.forEach(function(item, index, array) {
             
             var data = fs.readFileSync(item, 'utf8');
@@ -156,7 +156,7 @@ rl.question("Please enter your plugin Name:", function(answer) {
    | (____/| (___) | )   ( | )     | (____/| (____/\   | |  | (____/| (__/  )
    (_______(_______|/     (|/      (_______(_______/  )_(  (_______(______/ 
                                                                                                             
-          All File Processed Successfully!
+          All File Processed Successfully! 🧞‍♂️
           Now run "npm run watch" and activate your plugin.
           Thanks from https://www.hasanuzzaman.com`)
     });
@@ -174,7 +174,7 @@ rl.question("Please enter your plugin Name:", function(answer) {
   }else {
     var suggestion = answer.replace(/-/g, ' ');
     console.log('⚠️ Warning: Please don\'t use hyfen. You may use '+ suggestion + ' as your plugin name');
-    console.log('⚠️ Please run again "node src/seup" and enter a unique plugin name.');
+    console.log('⚠️ Please run again "node aladin" and enter a unique plugin name.');
   }
  
  

@@ -2,7 +2,7 @@ const glob = require('glob');
 const fs = require('fs');
 
 // For entry file selection
-glob("wp-boilerplate-vue-with-vite.php", function(err, files) {
+glob("plugin-entry.php", function(err, files) {
         files.forEach(function(item, index, array) {
             const data = fs.readFileSync(item, 'utf8');
             const mapObj = {

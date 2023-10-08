@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.6.6; wp-6.3.1\n"
-"X-Domain: wp-boilerplate-vue-with-vite"
+"X-Domain: plugin-entry"
 
 #. Description of the plugin
 msgid "A sample WordPress plugin to implement Vue with tailwind."
@@ -32,7 +32,7 @@ msgstr ""
 msgid "http://wpminers.com/"
 msgstr ""
 
-#: wp-boilerplate-vue-with-vite.php:77
+#: plugin-entry.php:77
 msgid "My Text"
 msgstr ""
 

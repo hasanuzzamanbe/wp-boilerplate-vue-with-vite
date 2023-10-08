@@ -7,7 +7,7 @@
  * Author: Hasanuzzaman Shamim
  * Author URI: http://hasanuzzaman.com/
  * Version: 1.0.6
- * Text Domain: wp-boilerplate-vue-with-vite
+ * Text Domain: pluginslug
  */
 define('PLUGIN_CONST_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_CONST_DIR', plugin_dir_path(__FILE__));
@@ -67,7 +67,7 @@ class PluginClassName {
      * For translatable string localization you may use like this
      * 
      *      add_filter('pluginlowercase/frontend_translatable_strings', function($translatable){
-     *          $translatable['world'] = __('World', 'wp-boilerplate-vue-with-vite');
+     *          $translatable['world'] = __('World', 'pluginslug');
      *          return $translatable;
      *      }, 10, 1);
      */
@@ -77,7 +77,7 @@ class PluginClassName {
         $loadAssets->admin();
 
         $translatable = apply_filters('pluginlowercase/frontend_translatable_strings', array(
-            'hello' => __('Hello', 'wp-boilerplate-vue-with-vite'),
+            'hello' => __('Hello', 'pluginslug'),
         ));
 
         $pluginlowercase = apply_filters('pluginlowercase/admin_app_vars', array(
@@ -106,13 +106,13 @@ class PluginClassName {
     * NB: text-domain should match exact same as plugin directory name (Plugin Name)
     * WordPress plugin convention: if plugin name is "My Plugin", then text-domain should be "my-plugin"
     * 
-    * For PHP you can use __() or _e() function to translate text like this __('My Text', 'wp-boilerplate-vue-with-vite')
+    * For PHP you can use __() or _e() function to translate text like this __('My Text', 'pluginslug')
     * For Vue you can use $t('My Text') to translate text, You must have to localize "My Text" in PHP first
     * Check example in "renderAdminPage" function, how to localize text for Vue in i18n array
     */
     public function loadTextDomain()
     {
-        load_plugin_textdomain('wp-boilerplate-vue-with-vite', false, basename(dirname(__FILE__)) . '/languages');
+        load_plugin_textdomain('pluginslug', false, basename(dirname(__FILE__)) . '/languages');
     }
 
 

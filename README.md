@@ -11,16 +11,43 @@ It needs milliseconds to update the dom, [Check very short video](https://www.yo
 Caption: <i>Dummy dashboard with custom build vue + tailwind setup (Vite realtime environment)</i><br/>
 
 # How to use?
+- Just clone/fork this repository on your wp-content/plugins directory
+- run: `npm i`
+- run: `npm run watch` for development and for production: `npm run production`
+You may check the package.json file for more info.
 
-- Just clone/fork this repository
-- Check the package.json file
-- command: `npm i`
-- command: `npm run watch` for development and for production: `npm run production`
+### Make Your Own plugin from boilerplate within 10 sec (Quick Setup 🧞‍♂️)
+No worries! It needs just one command to create your own plugin with your Namespaces, Text Domains and Slugs.
 
-On production you only need
+Open directory in terminal (`cd wp-boilerplate-vue-with-vite`)
+
+Call aladin 🧞‍♂️ by one command.
+- run: `node aladin` and enter your Plugin Name in command prompt.
+
+Aladdin 🧞‍♂️ will make it within a blink.
+Congratulation Everything done 🥳
+
+Just find the plugin name and activate it in yor WordPress. Run development mode by `npm run dev`
+
+Yes you can update all those things later also.
+
+
+<details>
+  <summary>Manual setup(Not recommended): </summary>
+  you have to replace all the NameSpaces and slugs. You may search and replace in plugin directory. by these keywords bellow.
+  `PluginClassName` to yourClassName
+  `pluginlowercase` to yourpluginslug,
+  `PLUGIN_CONST` to YOUR_PLUGIN_SLUG,
+  `PluginName`  to Your Plugin Name,
+  `pluginslug` to your-plugin-slug
+</details>
+
+
+### production mode
+You only need to run `npm run production` delete all excepts these files/directory.
 - assets
 - includes
-- wp-boilerplate-vue-with-vite.php (plugin Entry file)
+- plugin-entry.php (plugin Entry file)
 
 # Development Helping Docs:
 
