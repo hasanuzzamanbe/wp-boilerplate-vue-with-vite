@@ -1,5 +1,5 @@
 import app from './elements.js';
-import ajax from './AJAX'
+import ajax from './AJAX.js'
 
 import {
     applyFilters,
@@ -12,7 +12,7 @@ import {
 const appStartTime = new Date();
 
 
-export default class WPPluginVueTailwind {
+export default class AppMixins {
     constructor() {
         this.doAction = doAction;
         this.addFilter = addFilter;
@@ -21,7 +21,7 @@ export default class WPPluginVueTailwind {
         this.removeAllActions = removeAllActions;
         //
         this.AJAX = ajax;
-        this.appVars = window.WPPluginVueTailwindAdmin;
+        this.appVars = window.PluginClassNameAdmin;
         this.app = this.extendVueConstructor();
     }
 
@@ -50,7 +50,7 @@ export default class WPPluginVueTailwind {
                     document.title = title;
                 },
                 $t(str) {
-                    let transString = wpmvtAdmin.i18n[str];
+                    let transString = pluginlowercaseAdmin.i18n[str];
                     if (transString) {
                         return transString;
                     }
@@ -82,7 +82,7 @@ export default class WPPluginVueTailwind {
             return;
         }
 
-        this.addFilter('wpmvt_top_menus', this.appVars.slug, function (menus) {
+        this.addFilter('pluginlowercase_top_menus', this.appVars.slug, function (menus) {
             menus = menus.filter(m => m.route !== route.name);
             menus.push({
                 route: route.name,
@@ -91,7 +91,7 @@ export default class WPPluginVueTailwind {
             return menus;
         });
 
-        this.addFilter('wpmvt_global_routes', this.appVars.slug, function (routes) {
+        this.addFilter('pluginlowercase_global_routes', this.appVars.slug, function (routes) {
             routes = routes.filter(r => r.name !== route.name);
             routes.push(route);
             return routes;
@@ -119,7 +119,7 @@ export default class WPPluginVueTailwind {
     }
 
     saveData(key, data) {
-        let existingData = window.localStorage.getItem('__wpmvt_data');
+        let existingData = window.localStorage.getItem('__pluginlowercase_data');
 
         if (!existingData) {
             existingData = {};
@@ -129,11 +129,11 @@ export default class WPPluginVueTailwind {
 
         existingData[key] = data;
 
-        window.localStorage.setItem('__wpmvt_data', JSON.stringify(existingData));
+        window.localStorage.setItem('__pluginlowercase_data', JSON.stringify(existingData));
     }
 
     getData(key, defaultValue = false) {
-        let existingData = window.localStorage.getItem('__wpmvt_data');
+        let existingData = window.localStorage.getItem('__pluginlowercase_data');
         existingData = JSON.parse(existingData);
         if (!existingData) {
             return defaultValue;

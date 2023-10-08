@@ -1,12 +1,12 @@
 <?php
 
-namespace WPPluginVueTailwind\Classes;
+namespace PluginClassName\Classes;
 
 class LoadAssets
 {
     public function admin()
     {
-        Vite::enqueueScript('wpmvt-script-boot', 'admin/start.js', array('jquery'), WPM_VERSION, true);
+        Vite::enqueueScript('pluginlowercase-script-boot', 'admin/start.js', array('jquery'), PLUGIN_CONST_VERSION, true);
     }
   
 }

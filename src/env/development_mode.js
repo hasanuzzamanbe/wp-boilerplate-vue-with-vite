@@ -2,13 +2,13 @@ const glob = require('glob');
 const fs = require('fs');
 
 // For entry file selection
-glob("wp-plugin-with-vue-tailwind.php", function(err, files) {
+glob("wp-boilerplate-vue-with-vite.php", function(err, files) {
         files.forEach(function(item, index, array) {
             const data = fs.readFileSync(item, 'utf8');
             const mapObj = {
-                WPM_PRODUCTION: "WPM_DEVELOPMENT"
+                PLUGIN_CONST_PRODUCTION: "PLUGIN_CONST_DEVELOPMENT"
             };
-            const result = data.replace(/WPM_PRODUCTION/gi, function (matched) {
+            const result = data.replace(/PLUGIN_CONST_PRODUCTION/gi, function (matched) {
                 return mapObj[matched];
             });
             fs.writeFile(item, result, 'utf8', function (err) {

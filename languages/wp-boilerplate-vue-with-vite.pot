@@ -32,7 +32,7 @@ msgstr ""
 msgid "http://wpminers.com/"
 msgstr ""
 
-#: wp-plugin-with-vue-tailwind.php:77
+#: wp-boilerplate-vue-with-vite.php:77
 msgid "My Text"
 msgstr ""
 

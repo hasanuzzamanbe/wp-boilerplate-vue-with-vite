@@ -58,7 +58,7 @@ rl.question("Please enter your plugin Name:", function(answer) {
     
   
     // For entry file selection
-    glob("wp-plugin-with-vue-tailwind.php", function(err, files) {
+    glob("wp-boilerplate-vue-with-vite.php", function(err, files) {
           files.forEach(function(item, index, array) {
             
             var data = fs.readFileSync(item, 'utf8');
@@ -68,13 +68,13 @@ rl.question("Please enter your plugin Name:", function(answer) {
             var Camel     = camalize(answer);
         
             var mapObj = {
-              WPPluginVueTailwind: Camel,
-              wpmvt: Lowercase,
-              WPM: Uppercase,
-              WPPluginVueApp: answer,
-              wppluginvue: Slug
+              PluginClassName: Camel,
+              pluginlowercase: Lowercase,
+              PLUGIN_CONST: Uppercase,
+              PluginName: answer,
+              pluginslug: Slug
            };
-           var result = data.replace(/WPPluginVueTailwind|wpmvt|wppluginvue|WPM|WPPluginVueApp/gi, function(matched){
+           var result = data.replace(/PluginClassName|pluginlowercase|pluginslug|PLUGIN_CONST|PluginName/gi, function(matched){
              return mapObj[matched];
            });
             fs.writeFile(item, result, 'utf8', function (err) {
@@ -95,14 +95,14 @@ rl.question("Please enter your plugin Name:", function(answer) {
                 var Camel     = camalize(answer);
             
                 var mapObj = {
-                  WPPluginVueTailwind: Camel,
-                  wpmvt: Lowercase,
-                  WPM: Uppercase,
-                  WPPluginVueApp: answer,
-                  wppluginvue: Slug
+                  PluginClassName: Camel,
+                  pluginlowercase: Lowercase,
+                  PLUGIN_CONST: Uppercase,
+                  PluginName: answer,
+                  pluginslug: Slug
                };
 
-               var result = data.replace(/WPPluginVueTailwind|wpmvt|wppluginvue|WPM|WPPluginVueApp/gi, function(matched){
+               var result = data.replace(/PluginClassName|pluginlowercase|pluginslug|PLUGIN_CONST|PluginName/gi, function(matched){
                  return mapObj[matched];
                });
                 fs.writeFile(item, result, 'utf8', function (err) {
@@ -130,13 +130,13 @@ rl.question("Please enter your plugin Name:", function(answer) {
   
               var mapObj = {
                 YourPlugin: answer,
-                WPPluginVueTailwind: Camel,
-                wpmvt: Lowercase,
-                WPM: Uppercase,
-                WPPluginVueApp: answer,
-                wppluginvue: Slug
+                PluginClassName: Camel,
+                pluginlowercase: Lowercase,
+                PLUGIN_CONST: Uppercase,
+                PluginName: answer,
+                pluginslug: Slug
              };
-             var result = data.replace(/YourPlugin|WPPluginVueTailwind|wppluginvue|wpmvt|WPM|WPPluginVueApp/gi, function(matched){
+             var result = data.replace(/YourPlugin|PluginClassName|pluginslug|pluginlowercase|PLUGIN_CONST|PluginName/gi, function(matched){
                return mapObj[matched];
              });
     

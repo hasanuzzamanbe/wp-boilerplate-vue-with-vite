@@ -1,6 +1,6 @@
 <?php
 
-namespace WPPluginVueTailwind\Classes;
+namespace PluginClassName\Classes;
 
 use Exception;
 
@@ -128,7 +128,7 @@ class Vite
 
     public static function isDevMode(): bool
     {
-        return defined('WPM_DEVELOPMENT') && WPM_DEVELOPMENT === 'yes';
+        return defined('PLUGIN_CONST_DEVELOPMENT') && PLUGIN_CONST_DEVELOPMENT === 'yes';
     }
 
     private static function getDevPath(): string
@@ -138,7 +138,7 @@ class Vite
 
     private static function getAssetPath(): string
     {
-        return WPM_URL . 'assets/';
+        return PLUGIN_CONST_URL . 'assets/';
     }
 
     private static function getProductionFilePath($file): string

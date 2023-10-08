@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: WP with vue-tailwind-vite
+ * Plugin Name: PluginName
  * Plugin URI: http://wpminers.com/
  * Description: A sample WordPress plugin to implement Vue with tailwind.
  * Author: Hasanuzzaman Shamim
@@ -9,15 +9,15 @@
  * Version: 1.0.6
  * Text Domain: wp-boilerplate-vue-with-vite
  */
-define('WPM_URL', plugin_dir_url(__FILE__));
-define('WPM_DIR', plugin_dir_path(__FILE__));
+define('PLUGIN_CONST_URL', plugin_dir_url(__FILE__));
+define('PLUGIN_CONST_DIR', plugin_dir_path(__FILE__));
 
-define('WPM_VERSION', '1.0.5');
+define('PLUGIN_CONST_VERSION', '1.0.5');
 
 // This will automatically update, when you run dev or production
-define('WPM_DEVELOPMENT', 'yes');
+define('PLUGIN_CONST_DEVELOPMENT', 'yes');
 
-class WPPluginVueTailwind {
+class PluginClassName {
     public function boot()
     {
         $this->loadClasses();
@@ -30,7 +30,7 @@ class WPPluginVueTailwind {
 
     public function loadClasses()
     {
-        require WPM_DIR . 'includes/autoload.php';
+        require PLUGIN_CONST_DIR . 'includes/autoload.php';
     }
 
     public function renderMenu()
@@ -41,23 +41,23 @@ class WPPluginVueTailwind {
             }
             global $submenu;
             add_menu_page(
-                'WPPluginVueTailwind',
-                'WPPluginVueDash',
+                'PluginClassName',
+                'PluginName',
                 'manage_options',
-                'wppluginvue.php',
+                'pluginslug.php',
                 array($this, 'renderAdminPage'),
                 'dashicons-editor-code',
                 25
             );
-            $submenu['wppluginvue.php']['dashboard'] = array(
+            $submenu['pluginslug.php']['dashboard'] = array(
                 'Dashboard',
                 'manage_options',
-                'admin.php?page=wppluginvue.php#/',
+                'admin.php?page=pluginslug.php#/',
             );
-            $submenu['wppluginvue.php']['contact'] = array(
+            $submenu['pluginslug.php']['contact'] = array(
                 'Contact',
                 'manage_options',
-                'admin.php?page=wppluginvue.php#/contact',
+                'admin.php?page=pluginslug.php#/contact',
             );
         });
     }
@@ -66,29 +66,29 @@ class WPPluginVueTailwind {
      * Main admin Page where the Vue app will be rendered
      * For translatable string localization you may use like this
      * 
-     *      add_filter('wpmvt/frontend_translatable_strings', function($translatable){
+     *      add_filter('pluginlowercase/frontend_translatable_strings', function($translatable){
      *          $translatable['world'] = __('World', 'wp-boilerplate-vue-with-vite');
      *          return $translatable;
      *      }, 10, 1);
      */
     public function renderAdminPage()
     {
-        $loadAssets = new \WPPluginVueTailwind\Classes\LoadAssets();
+        $loadAssets = new \PluginClassName\Classes\LoadAssets();
         $loadAssets->admin();
 
-        $translatable = apply_filters('wpmvt/frontend_translatable_strings', array(
+        $translatable = apply_filters('pluginlowercase/frontend_translatable_strings', array(
             'hello' => __('Hello', 'wp-boilerplate-vue-with-vite'),
         ));
 
-        $wpmvt = apply_filters('wpmvt/admin_app_vars', array(
-            'assets_url' => WPM_URL . 'assets/',
+        $pluginlowercase = apply_filters('pluginlowercase/admin_app_vars', array(
+            'assets_url' => PLUGIN_CONST_URL . 'assets/',
             'ajaxurl' => admin_url('admin-ajax.php'),
             'i18n' => $translatable
         ));
 
-        wp_localize_script('wpmvt-script-boot', 'wpmvtAdmin', $wpmvt);
+        wp_localize_script('pluginlowercase-script-boot', 'pluginlowercaseAdmin', $pluginlowercase);
 
-        echo '<div class="wpmvt-admin-page" id="wpmvt_app">
+        echo '<div class="pluginlowercase-admin-page" id="pluginlowercase_app">
             <div class="main-menu text-white-200 bg-wheat-600 p-4">
                 <router-link to="/">
                     Home
@@ -123,7 +123,7 @@ class WPPluginVueTailwind {
     {
         add_action('admin_init', function () {
             $disablePages = [
-                'wppluginvue.php',
+                'pluginslug.php',
             ];
 
             if (isset($_GET['page']) && in_array($_GET['page'], $disablePages)) {
@@ -140,8 +140,8 @@ class WPPluginVueTailwind {
     public function ActivatePlugin()
     {
         register_activation_hook(__FILE__, function ($newWorkWide) {
-            require_once(WPM_DIR . 'includes/Classes/Activator.php');
-            $activator = new \WPPluginVueTailwind\Classes\Activator();
+            require_once(PLUGIN_CONST_DIR . 'includes/Classes/Activator.php');
+            $activator = new \PluginClassName\Classes\Activator();
             $activator->migrateDatabases($newWorkWide);
         });
     }
@@ -156,7 +156,7 @@ class WPPluginVueTailwind {
     }
 }
 
-(new WPPluginVueTailwind())->boot();
+(new PluginClassName())->boot();
 
 
 

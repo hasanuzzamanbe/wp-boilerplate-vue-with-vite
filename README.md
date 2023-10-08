@@ -20,7 +20,7 @@ Caption: <i>Dummy dashboard with custom build vue + tailwind setup (Vite realtim
 On production you only need
 - assets
 - includes
-- wp-plugin-with-vue-tailwind.php (plugin Entry file)
+- wp-boilerplate-vue-with-vite.php (plugin Entry file)
 
 # Development Helping Docs:
 
@@ -39,9 +39,9 @@ Note: same as `wp_enqueue_script`
 <p style="color: green;">
 No need to enqueue production manually again, It will enqueue from manifest on production. Just call `Vite::enqueueScript()`</p>
 
-`Vite::enqueueScript('my-plugin-script-boot', 'admin/start.js', array('jquery'), WPM_VERSION, true)`
+`Vite::enqueueScript('my-plugin-script-boot', 'admin/start.js', array('jquery'), PLUGIN_CONST_VERSION, true)`
 
-`Vite::enqueueStyle('my-plugin-style', 'scss/my-style.js', array(), WPM_VERSION, true)`
+`Vite::enqueueStyle('my-plugin-style', 'scss/my-style.js', array(), PLUGIN_CONST_VERSION, true)`
 
 
 
@@ -54,10 +54,10 @@ If you want to use `wp_enqueue_script` then you have to call both dev and produc
 (Production and dev enqueue script should be like this)
 
 ```
-if (defined('WPM_DEVELOPMENT') && WPM_DEVELOPMENT !== 'yes') {
-    wp_enqueue_script('wpmvt-script-boot', WPM_URL . 'assets/js/start.js', array('jquery'), WPM_VERSION, false);
+if (defined('PLUGIN_CONST_DEVELOPMENT') && PLUGIN_CONST_DEVELOPMENT !== 'yes') {
+    wp_enqueue_script('pluginlowercase-script-boot', PLUGIN_CONST_URL . 'assets/js/start.js', array('jquery'), PLUGIN_CONST_VERSION, false);
 } else {
-    wp_enqueue_script('wpmvt-script-boot', 'http://localhost:8880/' . 'src/admin/start.js', array('jquery'), WPM_VERSION, true);
+    wp_enqueue_script('pluginlowercase-script-boot', 'http://localhost:8880/' . 'src/admin/start.js', array('jquery'), PLUGIN_CONST_VERSION, true);
 }
 ```
 </details>
