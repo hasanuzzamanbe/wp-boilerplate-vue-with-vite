@@ -1,11 +1,11 @@
 # WP Plugin Vue Boilerplate (Vite Build)
-This is a Customizable sample WordPress Plugin which is developed as a single page app on backend with Vue js and Tailwind custom build css. and you don't have to reload page all the time.
-
+This is a Customizable Boilerplate WordPress Plugin that is developed as a single-page app with Vue js and Vite. You don't have to reload the page all the time.
+And <a href="https://github.com/hasanuzzamanbe/wp-boilerplate-vue-with-vite/edit/main/README.md#how-to-use">Quick setup</a> can help to make a new fresh plugin within 10 sec
 ### How faster is Vite than the Webpack in development?
 It needs milliseconds to update the dom, [Check very short video](https://www.youtube.com/watch?v=VA3G8ahoHLE)
 
+![photo_2023-10-09 00 03 48](https://github.com/hasanuzzamanbe/wp-boilerplate-vue-with-vite/assets/43160844/805520f1-9c72-4259-b863-2dc5818df5bf)
 ### Admin Dashboard
-
 <img src="./src/github-images/dashboard.png" />
 
 Caption: <i>Dummy dashboard with custom build vue + tailwind setup (Vite realtime environment)</i><br/>
@@ -17,6 +17,7 @@ Caption: <i>Dummy dashboard with custom build vue + tailwind setup (Vite realtim
 You may check the package.json file for more info.
 
 ### Make Your Own plugin from boilerplate within 10 sec (Quick Setup 🧞‍♂️)
+
 No worries! It needs just one command to create your own plugin with your Namespaces, Text Domains and Slugs.
 
 Open the directory in the terminal (`cd wp-boilerplate-vue-with-vite`)
@@ -96,6 +97,7 @@ if (defined('PLUGIN_CONST_DEVELOPMENT') && PLUGIN_CONST_DEVELOPMENT !== 'yes') {
 </details>
 
 
+Read web view here <a href="https://wpminers.com/make-wordpress-plugin-using-vue-with-vite-build/">See Details Doc</a>
 If you face any issues feel free to let me know. :)
 
 <br/>
