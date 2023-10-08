@@ -19,26 +19,32 @@ You may check the package.json file for more info.
 ### Make Your Own plugin from boilerplate within 10 sec (Quick Setup 🧞‍♂️)
 No worries! It needs just one command to create your own plugin with your Namespaces, Text Domains and Slugs.
 
-Open directory in terminal (`cd wp-boilerplate-vue-with-vite`)
+Open the directory in the terminal (`cd wp-boilerplate-vue-with-vite`)
 
 Call aladin 🧞‍♂️ by one command.
-- run: `node aladin` and enter your Plugin Name in command prompt.
+- run: `node aladin` and enter your Plugin Name in the command prompt.
 
 Aladdin 🧞‍♂️ will make it within a blink.
-Congratulation Everything done 🥳
+Congratulations Everything is done 🥳
 
-Just find the plugin name and activate it in yor WordPress. Run development mode by `npm run dev`
+Just find the plugin name and activate it in your WordPress. Run development mode by `npm run dev`
 
-Yes you can update all those things later also.
+Yes, you can update all those things later also.
 
 
 <details>
   <summary>Manual setup(Not recommended): </summary>
+  
   you have to replace all the NameSpaces and slugs. You may search and replace in plugin directory. by these keywords bellow.
+  
   `PluginClassName` to yourClassName
+  
   `pluginlowercase` to yourpluginslug,
+  
   `PLUGIN_CONST` to YOUR_PLUGIN_SLUG,
+  
   `PluginName`  to Your Plugin Name,
+  
   `pluginslug` to your-plugin-slug
 </details>
 
