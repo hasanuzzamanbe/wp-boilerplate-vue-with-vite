@@ -34,10 +34,6 @@ export default class WPPluginVueTailwind {
                 doAction,
                 addAction,
                 removeAllActions,
-                longLocalDate: self.longLocalDate,
-                longLocalDateTime: self.longLocalDateTime,
-                dateTimeFormat: self.dateTimeFormat,
-                localDate: self.localDate,
                 ucFirst: self.ucFirst,
                 ucWords: self.ucWords,
                 slugify: self.slugify,
@@ -49,7 +45,6 @@ export default class WPPluginVueTailwind {
                 $handleError: self.handleError,
                 $saveData: self.saveData,
                 $getData: self.getData,
-                $waitingTime: self.waitingTime,
                 convertToText: self.convertToText,
                 $setTitle(title) {
                     document.title = title;
@@ -116,12 +111,6 @@ export default class WPPluginVueTailwind {
         return AJAX.patch(url, options);
     }
 
-    longLocalDate(date) {
-        return this.dateTimeFormat(
-            date, 'ddd, DD MMM, YYYY'
-        );
-    }
-
     saveData(key, data) {
         let existingData = window.localStorage.getItem('__WPWVT_data');
 
@@ -149,12 +138,6 @@ export default class WPPluginVueTailwind {
 
         return defaultValue;
 
-    }
-
-    longLocalDateTime(date) {
-        return this.dateTimeFormat(
-            date, 'ddd, DD MMM, YYYY hh:mm:ssa'
-        );
     }
 
     ucFirst(text) {
