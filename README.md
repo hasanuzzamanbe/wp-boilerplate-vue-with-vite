@@ -1,6 +1,6 @@
 # WP Plugin Vue Boilerplate (Vite Build)
 This is a Customizable Boilerplate WordPress Plugin that is developed as a single-page app with Vue js and Vite. You don't have to reload the page all the time.
-And <a href="https://github.com/hasanuzzamanbe/wp-boilerplate-vue-with-vite/edit/main/README.md#how-to-use">Quick setup</a> can help to make a new fresh plugin within 10 sec
+And <a href="https://github.com/hasanuzzamanbe/wp-boilerplate-vue-with-vite/#make-your-own-plugin-from-boilerplate-within-10-sec-quick-setup-%EF%B8%8F">Quick setup</a> can help to make a new fresh plugin within 10 sec
 ### How faster is Vite than the Webpack in development?
 It needs milliseconds to update the dom, [Check very short video](https://www.youtube.com/watch?v=VA3G8ahoHLE)
 
@@ -97,7 +97,8 @@ if (defined('PLUGIN_CONST_DEVELOPMENT') && PLUGIN_CONST_DEVELOPMENT !== 'yes') {
 </details>
 
 
-Read web view here <a href="https://wpminers.com/make-wordpress-plugin-using-vue-with-vite-build/">See Details Doc</a>
+Read web documentation here <a href="https://wpminers.com/make-wordpress-plugin-using-vue-with-vite-build/"> Details Docs</a>
+
 If you face any issues feel free to let me know. :)
 
 <br/>
