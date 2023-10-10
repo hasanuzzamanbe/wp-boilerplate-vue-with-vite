@@ -1,35 +1,20 @@
 <template>
-    <div>
-        <div class="flex flex-wrap">
-            <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-                <card-line-chart />
-            </div>
-            <div class="w-full xl:w-4/12 px-4">
-                <card-bar-chart />
-            </div>
-        </div>
-        <div class="flex flex-wrap mt-4">
-            <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-                <card-page-visits />
-            </div>
-            <div class="w-full xl:w-4/12 px-4">
-                <card-social-traffic />
-            </div>
-        </div>
+  <div>
+    <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
+      <section>
+        <span class="block text-6xl font-bold mb-1">Dashboard Page vite</span>
+        <div class="text-2xl text-primary font-bold mb-3">Created by aladin</div>
+        <p class="mt-0 mb-4 text-700 line-height-3">No need to reload your page 🥳</p>
+        <a href="https://wpminers.com/make-wordpress-plugin-using-vue-with-vite-build/" target="_blank" class="text-primary text-blue-500 font-bold">Read the dev docs</a>
+      </section>
     </div>
+  </div>
 </template>
 <script type="module">
-import CardLineChart from "./Cards/CardLineChart.vue";
-import CardBarChart from "./Cards/CardBarChart.vue";
-import CardPageVisits from "./Cards/CardPageVisits.vue";
-import CardSocialTraffic from "./Cards/CardSocialTraffic.vue";
+
 export default {
     name: "dashboard-page",
     components: {
-        CardLineChart,
-        CardBarChart,
-        CardPageVisits,
-        CardSocialTraffic,
     },
 };
 </script>

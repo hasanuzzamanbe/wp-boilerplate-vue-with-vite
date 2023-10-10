@@ -1,19 +1,23 @@
 # WP Plugin Vue Boilerplate (Vite Build)
+### Run only 4 commands and make your own plugin
+- `git clone https://github.com/hasanuzzamanbe/wp-boilerplate-vue-with-vite.git`
+- `cd wp-boilerplate-vue-with-vite`
+- `npm i`
+- `node aladin` and enter your Plugin Name in the command prompt.
+
+Aladdin 🧞‍♂️ will make it within a blink. Congratulations Everything is done 🥳 
+`npm run dev` to run development mode. Find and activate your plugin in WordPress.
+------------------
 This is a Customizable Boilerplate WordPress Plugin that is developed as a single-page app with Vue js and Vite. You don't have to reload the page all the time.
-And <a href="https://github.com/hasanuzzamanbe/wp-boilerplate-vue-with-vite/#make-your-own-plugin-from-boilerplate-within-10-sec-quick-setup-%EF%B8%8F">Quick setup</a> can help to make a new fresh plugin within 10 sec
+Read the <a href="https://github.com/hasanuzzamanbe/wp-boilerplate-vue-with-vite/#make-your-own-plugin-from-boilerplate-within-10-sec-quick-setup-%EF%B8%8F">Detailed quick setup</a> can help to make a new fresh plugin within 10 sec
 ### How faster is Vite than the Webpack in development?
 It needs milliseconds to update the dom, [Check very short video](https://www.youtube.com/watch?v=VA3G8ahoHLE)
 
 ![photo_2023-10-09 00 03 48](https://github.com/hasanuzzamanbe/wp-boilerplate-vue-with-vite/assets/43160844/805520f1-9c72-4259-b863-2dc5818df5bf)
-### Admin Dashboard
-<img src="./src/github-images/dashboard.png" />
 
-Caption: <i>Dummy dashboard with custom build vue + tailwind setup (Vite realtime environment)</i><br/>
-
-# How to use?
+# How to use? (details)
 - Just clone/fork this repository on your wp-content/plugins directory
 - run: `npm i`
-- run: `npm run watch` for development and for production: `npm run production`
 You may check the package.json file for more info.
 
 ### Make Your Own plugin from boilerplate within 10 sec (Quick Setup 🧞‍♂️)
