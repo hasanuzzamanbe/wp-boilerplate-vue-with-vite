@@ -5,8 +5,11 @@
 - `npm i`
 - `node aladin` and enter your Plugin Name in the command prompt.
 
-Aladdin 🧞‍♂️ will make it within a blink. Congratulations Everything is done 🥳 
+Aladdin 🧞‍♂️ will make it within a blink. 
+
+Congratulations Everything is done 🥳 
 `npm run dev` to run development mode. Find and activate your plugin in WordPress.
+
 ------------------
 This is a Customizable Boilerplate WordPress Plugin that is developed as a single-page app with Vue js and Vite. You don't have to reload the page all the time.
 Read the <a href="https://github.com/hasanuzzamanbe/wp-boilerplate-vue-with-vite/#make-your-own-plugin-from-boilerplate-within-10-sec-quick-setup-%EF%B8%8F">Detailed quick setup</a> can help to make a new fresh plugin within 10 sec
