@@ -119,3 +119,7 @@ Check it here: https://github.com/hasanuzzamanbe/wp-boilerplate-plugin-with-vuej
 * WordPress Plugin with Vue 3, tailwind (Laravel Mix Build) [https://github.com/hasanuzzamanbe/wp-plugin-with-vue-tailwind]
 * WordPress Plugin with Vue 2, Element UI (Laravel Mix Build) [https://github.com/hasanuzzamanbe/wp-boilerplate-plugin-with-vuejs]
 
+### Active Example plugins:
+Plugin using this boilerplate: https://wordpress.org/plugins/buy-me-coffee/
+<br/>
+Github Repo: https://github.com/hasanuzzamanbe/buy-me-coffee
