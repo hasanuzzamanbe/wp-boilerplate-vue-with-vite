@@ -1,20 +1,44 @@
-const request = function(method, route, data = {}) {
+const request = async function(method, route, data = {}) {
     const url = `${window.PluginClassName.rest.url}/${route}`;
+    
+    let headers = {
+        'X-WP-Nonce': window.PluginClassName.rest.nonce,
+        'Content-Type': 'application/json'
+    };
 
-    const headers = {'X-WP-Nonce': window.PluginClassName.rest.nonce};
-
-    if (['PUT', 'PATCH', 'DELETE'].indexOf(method.toUpperCase()) !== -1) {
+    if (['PUT', 'PATCH', 'DELETE'].includes(method.toUpperCase())) {
         headers['X-HTTP-Method-Override'] = method;
         method = 'POST';
     }
 
-    return window.jQuery.ajax({
-        url: url,
-        type: method,
-        data: data,
+    const options = {
+        method: method,
         headers: headers
-    });
-}
+    };
+
+    if (method !== 'GET') {
+        options.body = JSON.stringify(data);
+    }
+
+    try {
+        const response = await fetch(url, options);
+        
+        // Aggiorna il nonce se presente nella risposta
+        const newNonce = response.headers.get('X-WP-Nonce');
+        if (newNonce) {
+            window.PluginClassName.rest.nonce = newNonce;
+        }
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return response.json();
+    } catch (error) {
+        console.error('Request failed:', error);
+        throw error;
+    }
+};
 
 export default {
     get(route, data = {}) {
@@ -33,10 +57,3 @@ export default {
         return request('PATCH', route, data);
     }
 };
-
-jQuery(document).ajaxSuccess((event, xhr, settings) => {
-    const nonce = xhr.getResponseHeader('X-WP-Nonce');
-    if (nonce) {
-        window.PluginClassName.rest.nonce = nonce;
-    }
-});

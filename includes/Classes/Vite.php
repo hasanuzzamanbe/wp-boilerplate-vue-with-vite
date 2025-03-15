@@ -27,11 +27,6 @@ class Vite
         return self::$instance;
     }
 
-    public static function __callStatic($method, $params)
-    {
-        return call_user_func_array([self::getInstance(), $method], $params);
-    }
-
     /***
      * @param $handle
      * @param $src string file path relative to resource/src directory before build
@@ -60,7 +55,7 @@ class Vite
             $instance->isScriptFilterAdded = true;
         }
 
-        i$srcPath = self::isDevMode() 
+        $srcPath = self::isDevMode() 
             ? self::getDevPath() . $src 
             : self::getProductionFilePath($instance->getFileFromManifest($src))
         ;
@@ -118,7 +113,7 @@ class Vite
         return $this->manifestData[$fullSrc];
     }
 
-    private function addModuleToScript($tag, $handle, $src)
+    public function addModuleToScript($tag, $handle, $src)
     {
         if (in_array($handle, $this->moduleScripts)) {
             $tag = '<script type="module" src="' . esc_url($src) . '"></script>';
