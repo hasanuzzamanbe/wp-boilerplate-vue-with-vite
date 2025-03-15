@@ -1,5 +1,4 @@
 <?php
-// global functions here
 
 function pluginlowercase_getAvatar($email, $size)
 {
@@ -11,7 +10,7 @@ function pluginlowercase_getAvatar($email, $size)
      * @return html $gravatar img attributes of the gravatar image
      */
     return apply_filters('wpwvt_get_avatar',
-        "https://www.gravatar.com/avatar/${hash}?s=${size}&d=mm&r=g",
+        "https://www.gravatar.com/avatar/{$hash}?s={$size}&d=mm&r=g",
         $email
     );
 }

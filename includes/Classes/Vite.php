@@ -7,12 +7,13 @@ use Exception;
 class Vite
 {
     private static $instance = null;
-    private string $viteHostProtocol = 'http://';
-    private string $viteHost = 'localhost';
-    private string $vitePort = '8880';
+    private string $viteHostProtocol = 'https://';
+    private string $viteHost = 'example.ddev.site';
+    private string $vitePort = '5173';
     private string $resourceDirectory = 'src/';
     private array $moduleScripts = [];
     private bool $isScriptFilterAdded = false;
+    private array $manifestData = [];
 
 
     public static function __callStatic($method, $params)
@@ -23,10 +24,13 @@ class Vite
                 (static::$instance)->viteManifest();
             }
         }
-        return call_user_func_array(array(static::$instance, $method), $params);
+        return self::$instance;
     }
 
-
+    public static function __callStatic($method, $params)
+    {
+        return call_user_func_array([self::getInstance(), $method], $params);
+    }
 
     /***
      * @param $handle
@@ -39,88 +43,84 @@ class Vite
      * @throws Exception If dev mode is on and file not found in manifest
      * 
      */
-    private function enqueueScript($handle, $src, $dependency = [], $version = null, $inFooter = false)
+    public static function enqueueScript(string $handle, string $src, array $dependency = [], ?string $version = null, bool $inFooter = false): void
     {
-        if (in_array($handle, (static::$instance)->moduleScripts)) {
-            if (static::isDevMode()) {
-                throw new Exception('This handel Has been used');
+        $instance = self::getInstance();
+        if (in_array($handle, $instance->moduleScripts, true)) {
+            if (self::isDevMode()) {
+                throw new Exception('This handle has already been used');
             }
             return;
         }
-
-        (static::$instance)->moduleScripts[] = $handle;
-
-        if (!(static::$instance)->isScriptFilterAdded) {
-            add_filter('script_loader_tag', function ($tag, $handle, $src) {
-                return (static::$instance)->addModuleToScript($tag, $handle, $src);
-            }, 10, 3);
-            (static::$instance)->isScriptFilterAdded = true;
-        }
-
-        if (!static::isDevMode()) {
-            $assetFile = (static::$instance)->getFileFromManifest($src);
-            $srcPath = static::getProductionFilePath($assetFile);
-        } else {
-            $srcPath = static::getDevPath() . $src;
-        }
-
-        wp_enqueue_script(
-            $handle,
-            $srcPath,
-            $dependency,
-            $version,
-            $inFooter
-        );
-        return $this;
-    }
-
-    private function enqueueStyle($handle, $src, $dependency = [], $version = null)
-    {
-        if (!static::isDevMode()) {
-            $assetFile = (static::$instance)->getFileFromManifest($src);
-            $srcPath = static::getProductionFilePath($assetFile);
-        } else {
-            $srcPath = static::getDevPath() . $src;
-        }
     
-        wp_enqueue_style(
-            $handle,
-            $srcPath,
-            $dependency,
-            $version
-        );
+        $instance->moduleScripts[] = $handle;
+
+        if (!$instance->isScriptFilterAdded) {
+            add_filter('script_loader_tag', [$instance, 'addModuleToScript'], 10, 3);
+            $instance->isScriptFilterAdded = true;
+        }
+
+        i$srcPath = self::isDevMode() 
+            ? self::getDevPath() . $src 
+            : self::getProductionFilePath($instance->getFileFromManifest($src))
+        ;
+
+        wp_register_script($handle, $srcPath, $dependency, $version, $inFooter);
+        wp_enqueue_script($handle);
     }
 
-    private function viteManifest()
+    public static function enqueueStyle(string $handle, string $src, array $dependency = [], ?string $version = null): void
     {
-        if (!empty((static::$instance)->manifestData)) {
+        $instance = self::getInstance();
+        $srcPath = self::isDevMode() 
+            ? self::getDevPath() . $src 
+            : self::getProductionFilePath($instance->getFileFromManifest($src))
+        ;
+
+        if (!$version) {
+            $version = file_exists($srcPath) ? filemtime($srcPath) : RESTURANTTABLERESERVATIONSANDTAKEAWAY2_VERSION;
+        }
+
+        wp_enqueue_style($handle, $srcPath, $dependency, $version);
+    }
+
+    private function viteManifest(): void
+    {
+        if (!empty($this->manifestData)) {
             return;
         }
 
-        $manifestPath = realpath(__DIR__) . '/../../assets/manifest.json';
+        $manifestPath = realpath(__DIR__ . '/../../assets/manifest.json');
+
         if (!file_exists($manifestPath)) {
-            throw new Exception('Vite Manifest Not Found. Run : npm run dev or npm run prod');
+            throw new Exception('Vite Manifest Not Found. Run: npm run dev or npm run build');
         }
-        $manifestFile = fopen($manifestPath, "r");
-        $manifestData = fread($manifestFile, filesize($manifestPath));
-        (static::$instance)->manifestData = json_decode($manifestData, true);
+
+        $manifestContent = file_get_contents($manifestPath);
+        if (!$manifestContent) {
+            throw new Exception("Failed to read manifest file.");
+        }
+
+        $this->manifestData = json_decode($manifestContent, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
      * @throws Exception
      */
-    private function getFileFromManifest($src)
+    private function getFileFromManifest(string $src): array
     {
-        if (!isset((static::$instance)->manifestData[(static::$instance)->resourceDirectory . $src]) && static::isDevMode()) {
-            throw new Exception("$src file not found in vite manifest, Make sure it is in rollupOptions input and build again");
+        $fullSrc = $this->resourceDirectory . $src;
+
+        if (!isset($this->manifestData[$fullSrc]) && self::isDevMode()) {
+            throw new Exception(esc_html("$src file not found in Vite manifest. Make sure it is included in rollupOptions input and rebuild."));
         }
 
-        return (static::$instance)->manifestData[(static::$instance)->resourceDirectory . $src];
+        return $this->manifestData[$fullSrc];
     }
 
     private function addModuleToScript($tag, $handle, $src)
     {
-        if (in_array($handle, (static::$instance)->moduleScripts)) {
+        if (in_array($handle, $this->moduleScripts)) {
             $tag = '<script type="module" src="' . esc_url($src) . '"></script>';
         }
         return $tag;
@@ -133,7 +133,7 @@ class Vite
 
     private static function getDevPath(): string
     {
-        return (static::$instance)->viteHostProtocol . (static::$instance)->viteHost . ':' . (static::$instance)->vitePort . '/' . (static::$instance)->resourceDirectory;
+        return self::getInstance()->viteHostProtocol . self::getInstance()->viteHost . ':' . self::getInstance()->vitePort . '/' . self::getInstance()->resourceDirectory;
     }
 
     private static function getAssetPath(): string
@@ -143,7 +143,7 @@ class Vite
 
     private static function getProductionFilePath($file): string
     {
-        $assetPath = static::getAssetPath();
+        $assetPath = self::getAssetPath();
         if (isset($file['css']) && is_array($file['css'])) {
             foreach ($file['css'] as $key => $path) {
                 wp_enqueue_style(

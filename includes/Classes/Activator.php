@@ -12,17 +12,16 @@ if (!defined('ABSPATH')) {
  */
 class Activator
 {
-    public function migrateDatabases($network_wide = false)
+    public function migrateDatabases(bool $network_wide = false): void
     {
         global $wpdb;
-        if ($network_wide) {
-            // Retrieve all site IDs from this network (WordPress >= 4.6 provides easy to use functions for that).
-            if (function_exists('get_sites') && function_exists('get_current_network_id')) {
-                $site_ids = get_sites(array('fields' => 'ids', 'network_id' => get_current_network_id()));
-            } else {
-                $site_ids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs WHERE site_id = $wpdb->siteid;");
-            }
-            // Install the plugin for all these sites.
+
+        if ($network_wide && function_exists('get_sites') && function_exists('get_current_network_id')) {
+            $site_ids = get_sites([
+                'fields'      => 'ids',
+                'network_id'  => get_current_network_id(),
+            ]);
+
             foreach ($site_ids as $site_id) {
                 switch_to_blog($site_id);
                 $this->migrate();
@@ -49,23 +48,50 @@ class Activator
         global $wpdb;
         $charset_collate = $wpdb->get_charset_collate();
         $table_name = $wpdb->prefix . 'pluginlowercase_user_favorites';
-        $sql = "CREATE TABLE $table_name (
-            id int(10) NOT NULL AUTO_INCREMENT,
-            user_id int(10) NOT NULL,
-            post_id int(10) NOT NULL,
-            created_at timestamp NULL DEFAULT NULL,
-            updated_at timestamp NULL DEFAULT NULL,
-            PRIMARY KEY (id)
+
+        $cached = wp_cache_get($table_name, 'database_tables');
+
+        if ($cached === false) {
+            $exists = (bool) $wpdb->get_var($wpdb->prepare(
+                "SHOW TABLES LIKE %s",
+                $table_name
+            ));
+            wp_cache_set($table_name, $exists, 'database_tables', 3600); // Cache per 1 ora
+        } else {
+            $exists = $cached;
+        }
+
+        if (!$exists) {
+            $charset_collate = $wpdb->get_charset_collate();
+            $sql = "CREATE TABLE {$table_name} (
+                id INT(10) NOT NULL AUTO_INCREMENT,
+                user_id INT(10) NOT NULL,
+                post_id INT(10) NOT NULL,
+                created_at TIMESTAMP NULL DEFAULT NULL,
+                updated_at TIMESTAMP NULL DEFAULT NULL,
+                PRIMARY KEY (id)
             ) $charset_collate;";
 
-        $this->runSQL($sql, $table_name);
+            $this->runSQL($sql, $table_name);
+        }
     }
 
     private function runSQL($sql, $tableName)
     {
         global $wpdb;
-        if ($wpdb->get_var("SHOW TABLES LIKE '$tableName'") != $tableName) {
-            require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
+        $exists = wp_cache_get($tableName, 'database_tables');
+
+        if ($exists === false) {
+            $exists = (bool) $wpdb->get_var($wpdb->prepare(
+                "SHOW TABLES LIKE %s",
+                $tableName
+            ));
+            wp_cache_set($tableName, $exists, 'database_tables', 3600);
+        }
+
+        if (!$exists) {
+            require_once ABSPATH . 'wp-admin/includes/upgrade.php';
             dbDelta($sql);
         }
     }

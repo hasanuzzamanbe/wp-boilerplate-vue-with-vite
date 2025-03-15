@@ -17,9 +17,9 @@ export default defineConfig({
   ],
 
   build: {
-    manifest: true,
+    manifest: 'manifest.json',
     outDir: 'assets',
-    assetsDir: 'assetsDIR',
+    assetsDir: '',
     // publicDir: 'public',
     emptyOutDir: true, // delete the contents of the output directory before each build
 
@@ -58,13 +58,13 @@ export default defineConfig({
   },
 
   server: {
-    port: 8880,
+    host: "0.0.0.0", // DDEV SUPPORT
+    port: 5173,
     strictPort: true,
-    hmr: {
-      port: 8880,
-      host: 'localhost',
-      protocol: 'ws',
-    }
+    origin: `${process.env.DDEV_PRIMARY_URL.replace(/:\d+$/, "")}:5173`, // DDEV SUPPORT
+    cors: {
+      origin: /https?:\/\/([A-Za-z0-9\-\.]+)?(\.ddev\.site)(?::\d+)?$/,
+    },
   }
 })
 
