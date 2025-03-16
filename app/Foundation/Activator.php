@@ -2,97 +2,86 @@
 
 namespace PluginClassName\Foundation;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RegexIterator;
+
 if (!defined('ABSPATH')) {
-    exit;
+	exit;
 }
 
 /**
- * Ajax Handler Class
+ * Handles plugin activation and database migrations.
  * @since 1.0.0
  */
 class Activator
 {
-    public function migrateDatabases(bool $network_wide = false): void
-    {
-        global $wpdb;
+	/**
+	 * Run all database migrations during activation.
+	 *
+	 * @param bool $network_wide Whether the plugin is activated network-wide.
+	 */
+	public function migrateDatabases(bool $network_wide = false): void
+	{
+		global $wpdb;
 
-        if ($network_wide && function_exists('get_sites') && function_exists('get_current_network_id')) {
-            $site_ids = get_sites([
-                'fields'      => 'ids',
-                'network_id'  => get_current_network_id(),
-            ]);
+		if ($network_wide && function_exists('get_sites') && function_exists('get_current_network_id')) {
+			$site_ids = get_sites([
+				'fields'      => 'ids',
+				'network_id'  => get_current_network_id(),
+			]);
 
-            foreach ($site_ids as $site_id) {
-                switch_to_blog($site_id);
-                $this->migrate();
-                restore_current_blog();
-            }
-        } else {
-            $this->migrate();
-        }
-    }
+			foreach ($site_ids as $site_id) {
+				switch_to_blog($site_id);
+				$this->migrate();
+				restore_current_blog();
+			}
+		} else {
+			$this->migrate();
+		}
+	}
 
-    private function migrate()
-    {
-        /*
-        * database creation commented out,
-        * If you need any database just active this function bellow
-        * and write your own query at createUserFavorite function
-        */
+	/**
+	 * Run all registered migrations dynamically.
+	 */
+	private function migrate(): void
+	{
+		$migrations = $this->getMigrations();
 
-        $this->sampleTable();
-    }
+		foreach ($migrations as $migrationClass) {
+			if (class_exists($migrationClass) && is_subclass_of($migrationClass, Migration::class)) {
+				(new $migrationClass())->up();
+			}
+		}
+	}
 
-    public function sampleTable()
-    {
-        global $wpdb;
-        $charset_collate = $wpdb->get_charset_collate();
-        $table_name = $wpdb->prefix . 'pluginlowercase_user_favorites';
+	/**
+	 * Get all migration classes dynamically from the Migrations directory.
+	 *
+	 * @return array List of migration class names
+	 */
+	private function getMigrations(): array
+	{
+		$migrations = [];
+		$directory = plugin_dir_path(__FILE__) . '../../database/Migrations/';
 
-        $cached = wp_cache_get($table_name, 'database_tables');
+		if (!is_dir($directory)) {
+			return $migrations;
+		}
 
-        if ($cached === false) {
-            $exists = (bool) $wpdb->get_var($wpdb->prepare(
-                "SHOW TABLES LIKE %s",
-                $table_name
-            ));
-            wp_cache_set($table_name, $exists, 'database_tables', 3600); // Cache per 1 ora
-        } else {
-            $exists = $cached;
-        }
+		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+		$regexIterator = new RegexIterator($iterator, '/^.+\.php$/i', RegexIterator::GET_MATCH);
 
-        if (!$exists) {
-            $charset_collate = $wpdb->get_charset_collate();
-            $sql = "CREATE TABLE {$table_name} (
-                id INT(10) NOT NULL AUTO_INCREMENT,
-                user_id INT(10) NOT NULL,
-                post_id INT(10) NOT NULL,
-                created_at TIMESTAMP NULL DEFAULT NULL,
-                updated_at TIMESTAMP NULL DEFAULT NULL,
-                PRIMARY KEY (id)
-            ) $charset_collate;";
+		foreach ($regexIterator as $file) {
+			$filePath = $file[0];
+			$className = basename($filePath, '.php');
+			$fullClassName = "PluginClassName\\Database\\Migrations\\$className";
 
-            $this->runSQL($sql, $table_name);
-        }
-    }
+			if (class_exists($fullClassName) && is_subclass_of($fullClassName, Migration::class)) {
+				$migrations[] = $fullClassName;
+			}
+		}
 
-    private function runSQL($sql, $tableName)
-    {
-        global $wpdb;
-
-        $exists = wp_cache_get($tableName, 'database_tables');
-
-        if ($exists === false) {
-            $exists = (bool) $wpdb->get_var($wpdb->prepare(
-                "SHOW TABLES LIKE %s",
-                $tableName
-            ));
-            wp_cache_set($tableName, $exists, 'database_tables', 3600);
-        }
-
-        if (!$exists) {
-            require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-            dbDelta($sql);
-        }
-    }
+		return $migrations;
+	}
 }

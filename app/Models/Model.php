@@ -204,7 +204,7 @@ abstract class Model
 	{
 		$validOperators = ['=', '!=', '<', '>', '<=', '>=', 'LIKE', 'NOT LIKE', 'IN', 'NOT IN', 'IS', 'IS NOT'];
 		if (!in_array(strtoupper($operator), $validOperators, true)) {
-			throw new \InvalidArgumentException("Invalid SQL operator: {$operator}");
+			throw new \InvalidArgumentException(sprintf('Invalid SQL operator: %s', esc_html($operator)));
 		}
 		
 		$this->conditions[] = "`" . esc_sql($column) . "` {$operator} %s";

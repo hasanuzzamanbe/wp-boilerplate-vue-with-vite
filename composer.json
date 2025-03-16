@@ -1,5 +1,5 @@
 {
-    "name": "pask/wp-boilerplate-vue-with-vite",
+    "name": "pcatapan/wp-boilerplate-vue-with-vite",
     "authors": [
         {
             "name": "pcatapan",
@@ -12,7 +12,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "PluginClassName\\": "app/"
+            "PluginClassName\\": "app/",
+            "PluginClassName\\Database\\": "database/"
         },
         "files": [
             "app/global_functions.php"

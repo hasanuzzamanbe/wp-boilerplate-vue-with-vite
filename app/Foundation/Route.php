@@ -132,11 +132,11 @@ class Route {
             [$controller, $controllerMethod] = $callback;
     
             if (!class_exists($controller)) {
-                throw new \Exception("Controller {$controller} does not exist.");
+                throw new \Exception(sprintf('Controller %s does not exist.', esc_html($controller)));
             }
     
             if (!method_exists($controller, $controllerMethod)) {
-                throw new \Exception("Method {$controllerMethod} does not exist in {$controller}.");
+                throw new \Exception(sprintf('Method %s does not exist in controller %s.', esc_html($controllerMethod), esc_html($controller)));
             }
     
             if (!(new \ReflectionMethod($controller, $controllerMethod))->isStatic()) {
