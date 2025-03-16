@@ -2,6 +2,7 @@
 ### Run only 4 commands and make your own plugin
 - `git clone https://github.com/hasanuzzamanbe/wp-boilerplate-vue-with-vite.git`
 - `cd wp-boilerplate-vue-with-vite`
+- `composer i`
 - `npm i`
 - `node aladin` and enter your Plugin Name in the command prompt.
 
