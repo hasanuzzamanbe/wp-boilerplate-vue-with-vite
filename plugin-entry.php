@@ -17,6 +17,10 @@ define('PLUGIN_CONST_VERSION', '1.0.5');
 // This will automatically update, when you run dev or production
 define('PLUGIN_CONST_DEVELOPMENT', 'yes');
 
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+
 class PluginClassName {
     public function boot()
     {
@@ -30,7 +34,7 @@ class PluginClassName {
 
     public function loadClasses()
     {
-        require PLUGIN_CONST_DIR . 'includes/autoload.php';
+        require_once PLUGIN_CONST_DIR . 'routes/web.php';
     }
 
     public function renderMenu()
@@ -73,7 +77,7 @@ class PluginClassName {
      */
     public function renderAdminPage()
     {
-        $loadAssets = new \PluginClassName\Classes\LoadAssets();
+        $loadAssets = new \PluginClassName\Foundation\LoadAssets();
         $loadAssets->admin();
 
         $translatable = apply_filters('pluginlowercase/frontend_translatable_strings', array(
@@ -140,8 +144,8 @@ class PluginClassName {
     public function ActivatePlugin()
     {
         register_activation_hook(__FILE__, function ($newWorkWide) {
-            require_once(PLUGIN_CONST_DIR . 'includes/Classes/Activator.php');
-            $activator = new \PluginClassName\Classes\Activator();
+            require_once(PLUGIN_CONST_DIR . 'app/includes/Foundation/Activator.php');
+            $activator = new \PluginClassName\Foundation\Activator();
             $activator->migrateDatabases($newWorkWide);
         });
     }

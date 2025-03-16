@@ -1,0 +1,20 @@
+{
+    "name": "pask/wp-boilerplate-vue-with-vite",
+    "authors": [
+        {
+            "name": "pcatapan",
+            "email": "pacho30000@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PluginClassName\\": "app/"
+        },
+        "files": [
+            "app/global_functions.php"
+        ]
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^7.2"
+    }
+}

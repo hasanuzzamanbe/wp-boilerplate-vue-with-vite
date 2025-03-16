@@ -68,7 +68,7 @@ You only need to run `npm run production` delete all excepts these files/directo
 ### Enqueue Assets:
 Now easy enqueue from version 1.0.6
 No need to worry about the dev environment enqueue or Production level enqueue.
-everything here can be managed by Vite dedicated class (`includes/Classes/Vite.php`)
+everything here can be managed by Vite dedicated class (`includes/Foundation/Vite.php`)
 
 Just Call like this
 

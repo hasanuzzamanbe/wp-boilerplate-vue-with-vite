@@ -1,6 +1,6 @@
 <?php
 
-namespace PluginClassName\Classes;
+namespace PluginClassName\Foundation;
 
 class LoadAssets
 {

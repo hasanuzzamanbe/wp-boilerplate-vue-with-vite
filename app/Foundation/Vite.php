@@ -1,6 +1,6 @@
 <?php
 
-namespace PluginClassName\Classes;
+namespace PluginClassName\Foundation;
 
 use Exception;
 
@@ -8,7 +8,7 @@ class Vite
 {
     private static $instance = null;
     private string $viteHostProtocol = 'https://';
-    private string $viteHost = 'example.ddev.site';
+    private string $viteHost = 'dev-wp.ddev.site';
     private string $vitePort = '5173';
     private string $resourceDirectory = 'src/';
     private array $moduleScripts = [];
