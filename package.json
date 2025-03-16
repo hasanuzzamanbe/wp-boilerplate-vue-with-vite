@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "description": "A WordPress boilerplate plugin using vue.js",
     "scripts": {
-        "dev": "node src/env/development_mode.js && vite",
+        "dev": "node scripts/development_mode.js && vite",
         "watch": "npm run dev",
-        "build": "node src/env/production_mode.js && vite build",
+        "build": "node scripts/production_mode.js && vite build",
         "production": "npm run build"
     },
     "main": "index.js",
