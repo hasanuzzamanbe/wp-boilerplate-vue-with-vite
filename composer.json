@@ -3,7 +3,11 @@
     "authors": [
         {
             "name": "pcatapan",
-            "email": "pacho30000@gmail.com"
+            "email": "pasquale@catapano.me"
+        },
+        {
+            "name": "hasanuzzamanshamim",
+            "email": "hasanuzzamanbe@gmail.com"
         }
     ],
     "autoload": {

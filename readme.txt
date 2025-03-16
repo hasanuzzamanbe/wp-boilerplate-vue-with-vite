@@ -1,5 +1,5 @@
 === WP Plugin with vue, tailwind (Vite build) ===
-Contributors: hasanuzzamanshamim
+Contributors: hasanuzzamanshamim, pcatapan
 Tags: php, snippets, rawcode
 Requires at least: 4.5
 Tested up to: 6.3
