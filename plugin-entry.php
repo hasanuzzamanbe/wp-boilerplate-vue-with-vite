@@ -27,9 +27,10 @@ class PluginClassName {
 	public function boot()
 	{
 		$this->loadClasses();
+		//$this->disableUpdateNag();
 		$this->registerShortCodes();
+		$this->registerEntities();
 		$this->renderMenu();
-		$this->disableUpdateNag();
 		$this->loadTextDomain();
 	}
 
@@ -145,8 +146,8 @@ class PluginClassName {
 	public static function activate($newWorkWide)
 	{
 		require_once PLUGIN_CONST_DIR . 'app/Foundation/Activator.php';
-		$activator = new \PluginClassName\Foundation\Activator();
-		$activator->migrateDatabases($newWorkWide);
+		$activator = new \PluginClassName\Foundation\Activator($newWorkWide);
+		$activator->boot();
 	}
 
 	/**
@@ -156,6 +157,43 @@ class PluginClassName {
 	{
 		// Use add_shortcode('shortcode_name', 'function_name') to register shortcode
 	}
+
+	/**
+	 * Register all post types and taxonomies during activation.
+	 */
+	public function registerEntities(): void
+	{
+		$directory = PLUGIN_CONST_DIR . 'app/RegistrableEntity';
+		$namespace = 'PluginClassName\\RegistrableEntity\\';
+
+		$classes = [];
+
+		foreach (glob($directory . '/*.php') as $file) {
+			$className = $namespace . basename($file, '.php');
+
+			if (!class_exists($className)) {
+				continue;
+			}
+
+			$reflection = new \ReflectionClass($className);
+
+			if (
+				$reflection->isSubclassOf(\PluginClassName\Foundation\RegistrableEntity::class)
+				&& !$reflection->isAbstract()
+			) {
+				$classes[] = $className;
+			}
+		}
+
+		usort($classes, function ($a, $b) {
+			return is_subclass_of($a, 'PluginClassName\Foundation\RegistrableEntity\Taxonomy') ? -1 : 1;
+		});
+
+		foreach ($classes as $class) {
+			(new $class)->boot();
+		}
+	}
+
 }
 
 (new PluginClassName())->boot();

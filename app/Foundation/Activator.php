@@ -4,6 +4,7 @@ namespace PluginClassName\Foundation;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use ReflectionClass;
 use RegexIterator;
 
 if (!defined('ABSPATH')) {
@@ -16,16 +17,33 @@ if (!defined('ABSPATH')) {
  */
 class Activator
 {
+	private $newWorkWide;
+
+	public function __construct(bool $newWorkWide = false)
+	{
+		$this->newWorkWide = $newWorkWide;
+	}
+
+	/**
+	 * Boot the activator.
+	 */
+	public function boot()
+	{
+		$this->migrateDatabases();
+
+		flush_rewrite_rules();
+	}
+
 	/**
 	 * Run all database migrations during activation.
 	 *
 	 * @param bool $network_wide Whether the plugin is activated network-wide.
 	 */
-	public function migrateDatabases(bool $network_wide = false): void
+	public function migrateDatabases(): void
 	{
 		global $wpdb;
 
-		if ($network_wide && function_exists('get_sites') && function_exists('get_current_network_id')) {
+		if ($this->newWorkWide && function_exists('get_sites') && function_exists('get_current_network_id')) {
 			$site_ids = get_sites([
 				'fields'      => 'ids',
 				'network_id'  => get_current_network_id(),
@@ -63,7 +81,7 @@ class Activator
 	private function getMigrations(): array
 	{
 		$migrations = [];
-		$directory = plugin_dir_path(__FILE__) . '../../database/Migrations/';
+		$directory = PLUGIN_CONST_DIR . '../../database/Migrations/';
 
 		if (!is_dir($directory)) {
 			return $migrations;

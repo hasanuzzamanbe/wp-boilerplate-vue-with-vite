@@ -16,10 +16,13 @@
             "PluginClassName\\Database\\": "database/"
         },
         "files": [
-            "app/global_functions.php"
+            "app/helpers.php"
         ]
     },
     "require-dev": {
         "symfony/var-dumper": "^7.2"
+    },
+    "require": {
+        "johnbillion/extended-cpts": "^5.0"
     }
 }
