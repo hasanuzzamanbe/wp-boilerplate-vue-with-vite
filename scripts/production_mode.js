@@ -1,19 +1,15 @@
-import glob from 'glob'
-import fs from 'fs'
+import glob from 'glob';
+import fs from 'fs';
 
-// For entry file selection
-glob("plugin-entry.php", function(err, files) {
-		files.forEach(function(item, index, array) {
-			const data = fs.readFileSync(item, 'utf8');
-			const mapObj = {
-				PLUGIN_CONST_DEVELOPMENT: "PLUGIN_CONST_PRODUCTION"
-			};
-			const result = data.replace(/PLUGIN_CONST_DEVELOPMENT/gi, function (matched) {
-				return mapObj[matched];
-			});
-			fs.writeFile(item, result, 'utf8', function (err) {
-			if (err) return console.log(err);
-		});
-		console.log('✅  Development asset enqueued!');
-	});
+const files = glob.sync("**/plugin-entry.php");
+
+if (files.length === 0) {
+	console.log('⚠️  Nessun file plugin-entry.php trovato.');
+}
+
+files.forEach((item) => {
+	const data = fs.readFileSync(item, 'utf8');
+	const result = data.replace(/PLUGIN_CONST_DEVELOPMENT/gi, 'PLUGIN_CONST_PRODUCTION');
+	fs.writeFileSync(item, result, 'utf8');
+	console.log('🚀  Production mode activated!');
 });

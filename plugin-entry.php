@@ -15,7 +15,7 @@ define('PLUGIN_CONST_DIR', plugin_dir_path(__FILE__));
 define('PLUGIN_CONST_VERSION', '1.0.5');
 
 // This will automatically update, when you run dev or production
-define('PLUGIN_CONST_DEVELOPMENT', 'yes');
+define('PLUGIN_CONST_PRODUCTION', 'yes');
 
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 	ob_start();
