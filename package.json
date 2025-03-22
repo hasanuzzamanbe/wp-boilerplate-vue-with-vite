@@ -4,10 +4,12 @@
     "type": "module",
     "description": "A WordPress boilerplate plugin using vue.js",
     "scripts": {
-        "dev": "node scripts/set_env_mode.js dev && vite",
+        "dev": "npm i && node scripts/set_env_mode.js dev && vite",
         "watch": "npm run dev",
         "build": "node scripts/set_env_mode.js prod && vite build",
-        "production": "npm run build"
+        "production": "npm run build && npm run optimize",
+        "optimize": "node scripts/optimize.js",
+        "zip": "node scripts/zip.js"
     },
     "main": "index.js",
     "dependencies": {
