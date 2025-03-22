@@ -1,5 +1,5 @@
-import Admin from './Components/Admin.vue';
-import Contact from './Components/Contact.vue';
+import Admin from './components/Admin.vue';
+import Contact from './components/Contact.vue';
 
 export default [{
 		path: '/',

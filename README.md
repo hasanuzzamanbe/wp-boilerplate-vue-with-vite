@@ -33,7 +33,7 @@ app/
     Post.php       # Example model implementation
 routes/
   web.php         # Route definitions
-src/              # Frontend Vue application
+resources/              # Frontend Vue application
   admin/          # Admin panel components
 ```
 
@@ -130,7 +130,7 @@ Note: same as `wp_enqueue_script`
 <p style="color: green;">
 No need to enqueue production manually again, It will enqueue from manifest on production. Just call `Vite::enqueueScript()`</p>
 
-`Vite::enqueueScript('my-plugin-script-boot', 'admin/start.js', array('jquery'), PLUGIN_CONST_VERSION, true)`
+`Vite::enqueueScript('my-plugin-script-boot', 'js/admin/main.js', [], PLUGIN_CONST_VERSION, true)`
 
 `Vite::enqueueStyle('my-plugin-style', 'scss/my-style.js', array(), PLUGIN_CONST_VERSION, true)`
 
@@ -143,9 +143,9 @@ If you want to use `wp_enqueue_script` then you have to call both dev and produc
 
 ```
 if (defined('PLUGIN_CONST_DEVELOPMENT') && PLUGIN_CONST_DEVELOPMENT !== 'yes') {
-    wp_enqueue_script('pluginlowercase-script-boot', PLUGIN_CONST_URL . 'assets/js/start.js', array('jquery'), PLUGIN_CONST_VERSION, false);
+    wp_enqueue_script('pluginlowercase-script-boot', PLUGIN_CONST_URL . 'assets/js/main.js', [], PLUGIN_CONST_VERSION, false);
 } else {
-    wp_enqueue_script('pluginlowercase-script-boot', 'http://localhost:8880/' . 'src/admin/start.js', array('jquery'), PLUGIN_CONST_VERSION, true);
+    wp_enqueue_script('pluginlowercase-script-boot', 'http://localhost:8880/' . 'resources/js/admin/main.js', [], PLUGIN_CONST_VERSION, true);
 }
 ```
 </details>

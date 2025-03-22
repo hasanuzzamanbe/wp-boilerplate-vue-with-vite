@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 
-import '../../assets/tailwind.css';
+import '../../../css/tailwind.css';
 
 const app = createApp({});
 

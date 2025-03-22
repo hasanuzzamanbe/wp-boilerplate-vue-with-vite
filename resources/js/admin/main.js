@@ -1,6 +1,6 @@
 import routes from './routes';
 import { createWebHashHistory, createRouter } from 'vue-router';
-import PluginClassName from './Bits/AppMixins';
+import PluginClassName from './bits/AppMixins';
 
 const router = createRouter({
 	history: createWebHashHistory(),

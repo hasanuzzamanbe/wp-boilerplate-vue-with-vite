@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import liveReload from 'vite-plugin-live-reload';
-//import copy from 'rollup-plugin-copy'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,11 +8,6 @@ export default defineConfig({
   [
     vue(),
     liveReload(`${__dirname}/**/*\.php`),
-    //copy({
-    //  targets: [
-    //    { src: 'src/assets/*', dest: 'assets/' },
-    //  ]
-    //})
   ],
 
   build: {
@@ -26,9 +20,7 @@ export default defineConfig({
  // https://rollupjs.org/guide/en/#big-list-of-options
     rollupOptions: {
       input: [
-        'src/admin/start.js',
-        // 'src/style.scss',
-        // 'src/assets'
+        'resources/js/admin/main.js',
       ],
       output: {
         chunkFileNames: 'js/[name].js',

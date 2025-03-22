@@ -31,7 +31,6 @@
         "cross-env": "^7.0.3",
         "postcss": "^8.3.5",
         "resolve-url-loader": "^5.0.0",
-        "rollup-plugin-copy": "*",
         "sass": "^1.35.1",
         "sass-loader": "^10",
         "vite": "^6",

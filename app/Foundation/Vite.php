@@ -10,7 +10,7 @@ class Vite
 	private string $viteHostProtocol = 'https://';
 	private string $viteHost = 'dev-wp.ddev.site';
 	private string $vitePort = '5173';
-	private string $resourceDirectory = 'src/';
+	private string $resourceDirectory = 'resources/';
 	private array $moduleScripts = [];
 	private bool $isScriptFilterAdded = false;
 	private array $manifestData = [];
