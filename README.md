@@ -2,6 +2,7 @@
 ### Run only 4 commands and make your own plugin
 - `git clone https://github.com/hasanuzzamanbe/wp-boilerplate-vue-with-vite.git`
 - `cd wp-boilerplate-vue-with-vite`
+- `composer i`
 - `npm i`
 - `node aladin` and enter your Plugin Name in the command prompt.
 
@@ -13,6 +14,57 @@ Congratulations Everything is done 🥳
 ------------------
 This is a Customizable Boilerplate WordPress Plugin that is developed as a single-page app with Vue js and Vite. You don't have to reload the page all the time.
 Read the <a href="https://github.com/hasanuzzamanbe/wp-boilerplate-vue-with-vite/#make-your-own-plugin-from-boilerplate-within-10-sec-quick-setup-%EF%B8%8F">Detailed quick setup</a> can help to make a new fresh plugin within 10 sec
+
+### Project Structure
+The boilerplate follows an MVC-like architecture with a clean folder structure:
+
+```
+app/
+  Foundation/      # Core framework classes
+    Activator.php  # Plugin activation handler
+    LoadAssets.php # Asset management
+    Route.php      # Routing system
+    Vite.php       # Vite integration
+  Http/
+    Controllers/   # Request handlers and business logic
+      Controller.php # Abstract base controller
+  Models/          # Data models and database interactions
+    Model.php      # Abstract base model
+    Post.php       # Example model implementation
+routes/
+  web.php         # Route definitions
+resources/              # Frontend Vue application
+  admin/          # Admin panel components
+```
+
+### Routing System
+The plugin uses a Laravel-inspired routing system. Define your routes in `routes/web.php`:
+
+```php
+// routes/web.php
+Route::get('/api/posts', [PostController::class], 'index');
+Route::post('/api/posts', [PostController::class], 'store');
+```
+
+### Models and Controllers
+Extend the abstract Model class to create your data models:
+
+```php
+class Post extends Model {
+    protected $table = 'posts';
+}
+```
+
+Controllers handle the business logic and respond to requests:
+
+```php
+class PostController extends Controller {
+    public function index() {
+        return Post::all();
+    }
+}
+```
+
 ### How faster is Vite than the Webpack in development?
 It needs milliseconds to update the dom, [Check very short video](https://www.youtube.com/watch?v=VA3G8ahoHLE)
 
@@ -39,7 +91,6 @@ Just find the plugin name and activate it in your WordPress. Run development mod
 
 Yes, you can update all those things later also.
 
-
 <details>
   <summary>Manual setup(Not recommended): </summary>
   
@@ -56,7 +107,6 @@ Yes, you can update all those things later also.
   `pluginslug` to your-plugin-slug
 </details>
 
-
 ### production mode
 You only need to run `npm run production` delete all excepts these files/directory.
 - assets
@@ -68,7 +118,7 @@ You only need to run `npm run production` delete all excepts these files/directo
 ### Enqueue Assets:
 Now easy enqueue from version 1.0.6
 No need to worry about the dev environment enqueue or Production level enqueue.
-everything here can be managed by Vite dedicated class (`includes/Classes/Vite.php`)
+everything here can be managed by Vite dedicated class (`includes/Foundation/Vite.php`)
 
 Just Call like this
 
@@ -80,12 +130,9 @@ Note: same as `wp_enqueue_script`
 <p style="color: green;">
 No need to enqueue production manually again, It will enqueue from manifest on production. Just call `Vite::enqueueScript()`</p>
 
-`Vite::enqueueScript('my-plugin-script-boot', 'admin/start.js', array('jquery'), PLUGIN_CONST_VERSION, true)`
+`Vite::enqueueScript('my-plugin-script-boot', 'js/admin/main.js', [], PLUGIN_CONST_VERSION, true)`
 
 `Vite::enqueueStyle('my-plugin-style', 'scss/my-style.js', array(), PLUGIN_CONST_VERSION, true)`
-
-
-
 
 <details>
   <summary>NOT RECOMMENDED wp_enqueue_script (see why)</summary>
@@ -96,13 +143,12 @@ If you want to use `wp_enqueue_script` then you have to call both dev and produc
 
 ```
 if (defined('PLUGIN_CONST_DEVELOPMENT') && PLUGIN_CONST_DEVELOPMENT !== 'yes') {
-    wp_enqueue_script('pluginlowercase-script-boot', PLUGIN_CONST_URL . 'assets/js/start.js', array('jquery'), PLUGIN_CONST_VERSION, false);
+    wp_enqueue_script('pluginlowercase-script-boot', PLUGIN_CONST_URL . 'assets/js/main.js', [], PLUGIN_CONST_VERSION, false);
 } else {
-    wp_enqueue_script('pluginlowercase-script-boot', 'http://localhost:8880/' . 'src/admin/start.js', array('jquery'), PLUGIN_CONST_VERSION, true);
+    wp_enqueue_script('pluginlowercase-script-boot', 'http://localhost:8880/' . 'resources/js/admin/main.js', [], PLUGIN_CONST_VERSION, true);
 }
 ```
 </details>
-
 
 Read web documentation here <a href="https://wpminers.com/make-wordpress-plugin-using-vue-with-vite-build/"> Details Docs</a>
 

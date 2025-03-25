@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import liveReload from 'vite-plugin-live-reload';
-import copy from 'rollup-plugin-copy'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,43 +8,27 @@ export default defineConfig({
   [
     vue(),
     liveReload(`${__dirname}/**/*\.php`),
-    copy({
-      targets: [
-        { src: 'src/assets/*', dest: 'assets/' },
-      ]
-    })
   ],
 
   build: {
-    manifest: true,
+    manifest: 'manifest.json',
     outDir: 'assets',
-    assetsDir: 'assetsDIR',
-    // publicDir: 'public',
+    assetsDir: '',
+    publicDir: 'public',
     emptyOutDir: true, // delete the contents of the output directory before each build
 
  // https://rollupjs.org/guide/en/#big-list-of-options
     rollupOptions: {
       input: [
-        'src/admin/start.js',
-        // 'src/style.scss',
-        // 'src/assets'
+        'resources/js/admin/main.js',
       ],
       output: {
         chunkFileNames: 'js/[name].js',
         entryFileNames: 'js/[name].js',
         
-        assetFileNames: ({name}) => {
-          // if (/\.(gif|jpe?g|png|svg)$/.test(name ?? '')){
-          //     return 'images/[name][extname]';
-          // }
-          
-          if (/\.css$/.test(name ?? '')) {
-              return 'css/[name][extname]';   
-          }
- 
-          // default value
-          // ref: https://rollupjs.org/guide/en/#outputassetfilenames
-          return '[name][extname]';
+        assetFileNames: ({ name }) => {
+          if (/\.css$/.test(name ?? '')) return 'css/[name][extname]'
+          return '[name][extname]'
         },
       },
     },
@@ -58,13 +41,13 @@ export default defineConfig({
   },
 
   server: {
-    port: 8880,
+    host: "0.0.0.0", // DDEV SUPPORT
+    port: 5173,
     strictPort: true,
-    hmr: {
-      port: 8880,
-      host: 'localhost',
-      protocol: 'ws',
-    }
+    origin: `${process.env.DDEV_PRIMARY_URL.replace(/:\d+$/, "")}:5173`, // DDEV SUPPORT
+    cors: {
+      origin: /https?:\/\/([A-Za-z0-9\-\.]+)?(\.ddev\.site)(?::\d+)?$/,
+    },
   }
 })
 

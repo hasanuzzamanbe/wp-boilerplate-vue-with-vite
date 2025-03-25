@@ -42,7 +42,13 @@ async function processFiles(answer) {
 
     try {
         console.log('🚀 Processing files...');
-        const files = await glob("!(node_modules)/**/*.*");
+        const files = await glob("**/*.*", {
+            ignore: [
+                "node_modules/**",
+                "aladin.js",
+                "README.md",
+            ]
+        });
         console.log("Found files:", files);
 
         if (files.length === 0) {
