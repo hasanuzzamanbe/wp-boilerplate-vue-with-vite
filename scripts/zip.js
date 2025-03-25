@@ -24,7 +24,7 @@ console.log(`📦  Creating ZIP: ${zipName}`);
 try {
 	// Crea lo zip escludendo file di sviluppo
 	execSync(
-		`zip -r ${zipName} . -x "node_modules/*" "scripts/*" "*.log" "*.lock" "*.json" "*.config.*" ".vite/*" "vite.config.*" ".git*" "resources/*"`,
+		`zip -r ${zipName} . -x "node_modules/*" "scripts/*" "*.log" "*.lock" "*.json" "*.config.*" ".vite/*" "vite.config.*" ".git*" "resources/*" "README.md"`,
 		{ stdio: 'inherit' }
 	);
 	console.log(`✅  ZIP created: ${zipName}`);
